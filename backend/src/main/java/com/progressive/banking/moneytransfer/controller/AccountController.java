@@ -31,7 +31,7 @@ public class AccountController {
     // Optional method-security example:
     // @PreAuthorize("hasRole('USER')")
     public ResponseEntity<AccountResponse> getAccount(
-            @PathVariable @Min(value = 1, message = "id must be >= 1") Integer id,
+            @PathVariable("id") @Min(value = 1, message = "id must be >= 1") Integer id,
             Authentication authentication) {
 
         AccountResponse response = accountService.getAccount(id);
@@ -45,7 +45,7 @@ public class AccountController {
     // Optional:
     // @PreAuthorize("hasRole('USER')")
     public ResponseEntity<BalanceResponse> getBalance(
-            @PathVariable @Min(value = 1, message = "id must be >= 1") Integer id,
+            @PathVariable("id") @Min(value = 1, message = "id must be >= 1") Integer id,
             Authentication authentication) {
 
         BalanceResponse response = accountService.getBalance(id);
@@ -59,7 +59,7 @@ public class AccountController {
     // Optional:
     // @PreAuthorize("hasRole('USER')")
     public ResponseEntity<List<TransferResponse>> getTransactions(
-            @PathVariable @Min(value = 1, message = "id must be >= 1") Integer id,
+            @PathVariable("id") @Min(value = 1, message = "id must be >= 1") Integer id,
             Authentication authentication) {
 
         List<TransferResponse> response = accountService.getTransactions(id);
