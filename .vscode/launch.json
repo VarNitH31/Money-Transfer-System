@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MoneytransferApplication<moneytransfer>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.progressive.banking.moneytransfer.MoneytransferApplication",
+            "projectName": "moneytransfer",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
