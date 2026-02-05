@@ -1,5 +1,4 @@
--- Money Transfer System - Seed Data
--- Run after schema.sql
+
 
 USE money_transfer;
 
