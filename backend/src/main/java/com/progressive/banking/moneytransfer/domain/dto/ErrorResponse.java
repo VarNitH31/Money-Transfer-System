@@ -1,25 +1,20 @@
 package com.progressive.banking.moneytransfer.domain.dto;
 
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDateTime;
+import java.util.Map;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
-
+    private String errorCode;
+    private String message;
     private LocalDateTime timestamp;
-
-    private int status;  // HTTP status code (e.g., 400, 404, 500)
-
-    private String error;  // Error description (e.g., "Bad Request")
-
-    private String message; // Custom message
-
-    private String path; // Request URI
+    private String path;
+    private Map<String, String> details;  // For validation errors
 }
