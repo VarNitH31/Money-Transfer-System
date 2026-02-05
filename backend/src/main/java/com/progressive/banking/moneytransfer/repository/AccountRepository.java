@@ -1,5 +1,10 @@
 package com.progressive.banking.moneytransfer.repository;
 
+import java.util.Optional;
+
+import com.progressive.banking.moneytransfer.domain.entities.Account;
+import com.progressive.banking.moneytransfer.domain.enums.AccountStatusEnum;
+
 import com.progressive.banking.moneytransfer.domain.entities.Account;
 import com.progressive.banking.moneytransfer.domain.enums.AccountStatus;
 import jakarta.persistence.LockModeType;
@@ -9,30 +14,20 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.util.Optional;
-
 @Repository
-public interface AccountRepository extends JpaRepository<Account, Long> {
+public interface AccountRepository extends JpaRepository<Account, Integer> {
 
     /**
-     * Find account with pessimistic write lock for transaction safety
+     * Optional: Find account with pessimistic write lock
+     * Use ONLY if you decide to use pessimistic locking in transfer.
      */
     @Lock(LockModeType.PESSIMISTIC_WRITE)
-    @Query("SELECT a FROM Account a WHERE a.id = :id")
-    Optional<Account> findByIdForUpdate(@Param("id") Long id);
+    @Query("SELECT a FROM Account a WHERE a.accountId = :id")
+    Optional<Account> findByIdForUpdate(@Param("id") Integer id);
 
-    /**
-     * Find account by holder name
-     */
     Optional<Account> findByHolderName(String holderName);
 
-    /**
-     * Check if account exists with given status
-     */
-    boolean existsByIdAndStatus(Long id, AccountStatus status);
+    boolean existsByAccountIdAndStatus(Integer accountId, AccountStatusEnum status);
 
-    /**
-     * Count accounts by status
-     */
-    long countByStatus(AccountStatus status);
+    long countByStatus(AccountStatusEnum status);
 }
