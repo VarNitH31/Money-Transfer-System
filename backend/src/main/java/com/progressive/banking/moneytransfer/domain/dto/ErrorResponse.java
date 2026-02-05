@@ -15,6 +15,11 @@ public class ErrorResponse {
     private String errorCode;
     private String message;
     private LocalDateTime timestamp;
-    private String path;
-    private Map<String, String> details;  // For validation errors
+    
+    private String errorCode; 
+
+    private String message; // Custom message
+
+    private String path; // Request URI
+    private Map<String, String> details;
 }
