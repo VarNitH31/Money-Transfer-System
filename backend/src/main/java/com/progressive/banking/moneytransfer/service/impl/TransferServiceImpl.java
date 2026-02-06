@@ -38,7 +38,7 @@ public class TransferServiceImpl implements TransferService {
      */
     @Override
     @Transactional
-    public TransferResponse transfer(TransferRequest request) {
+    public TransferResponse transfer(TransferRequest request, String username) {
 
         // 1) Idempotency: if already processed, return existing log response
         transactionLogRepository.findByIdempotencyKey(request.getIdempotencyKey())
@@ -56,7 +56,14 @@ public class TransferServiceImpl implements TransferService {
 
         Account to = accountRepository.findById(request.getToAccountId())
                 .orElseThrow(() -> new AccountNotFoundException("To account not found: " + request.getToAccountId()));
-
+     
+        // AUTHORIZATION CHECK
+        if (!from.getHolderName().equalsIgnoreCase(username)) {
+            throw new SecurityException(
+                "Unauthorized: account does not belong to logged-in user"
+            );
+        }
+       
         // 3) Create log as PENDING first (helps trace even if execution fails)
         TransactionLog logEntity = new TransactionLog();
         logEntity.setFromAccountId(request.getFromAccountId());
