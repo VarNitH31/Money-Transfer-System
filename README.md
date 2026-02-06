@@ -80,14 +80,6 @@ money-transfer-system/
 - Git 2.x
 - Snowflake Account (for Module 5)
 
-### Current Status
-
-- [x] Module 1: GIT - Repository Setup ✅
-- [ ] Module 2: Advanced Java - Domain Models
-- [ ] Module 3: Spring Boot - REST APIs
-- [ ] Module 4: Angular - Frontend
-- [ ] Module 5: Snowflake - Analytics
-
 ## 📋 Core Features
 
 - ✅ Fund Transfer between accounts
@@ -99,7 +91,7 @@ money-transfer-system/
 
 ## 🔒 Security
 
-- Basic Auth / JWT Authentication
+- JWT Authentication
 - Input Validation
 - Transaction Management (ACID)
 - Optimistic Locking
@@ -111,6 +103,7 @@ money-transfer-system/
 3. Amount must be greater than 0
 4. Sufficient balance required
 5. Idempotency key prevents duplicates
+
 
 
 
