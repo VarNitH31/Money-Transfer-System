@@ -118,20 +118,10 @@ money-transfer-system/
 4. Sufficient balance required
 5. Idempotency key prevents duplicates
 
-## 👥 Contributors
-
-- [Your Name] - Developer
-
-## 📄 License
-
-This project is licensed under the MIT License.
-
-## 📞 Support
-
-For questions or issues, please open an issue in the GitHub repository.
 
 ---
 
 **Current Module:** Module 1 - GIT Setup ✅  
 **Next Module:** Module 2 - Advanced Java Domain Models
 EOF
+
