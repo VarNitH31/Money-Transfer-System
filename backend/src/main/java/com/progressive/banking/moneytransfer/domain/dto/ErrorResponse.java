@@ -1,14 +1,10 @@
 package com.progressive.banking.moneytransfer.domain.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+
 import java.time.LocalDateTime;
 import java.util.Map;
-
-import com.fasterxml.jackson.annotation.JsonInclude;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Data
 @Builder
@@ -16,7 +12,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class ErrorResponse {
-
+    private String errorCode;
+    private String message;
     private LocalDateTime timestamp;
     
     private String errorCode; 
