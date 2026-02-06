@@ -3,12 +3,6 @@
 
 A production-grade digital money transfer microservice built progressively aligned with training curriculum.
 
-## 🎯 Project Overview
-
-**Project Type:** Enterprise Banking Microservice  
-**Total Duration:** 30 Hours (Per Participant)  
-**Approach:** Training-Aligned Progressive Build
-
 ## 📚 Training Modules
 
 This project is built progressively across 5 training modules:
@@ -119,9 +113,6 @@ money-transfer-system/
 5. Idempotency key prevents duplicates
 
 
----
 
-**Current Module:** Module 1 - GIT Setup ✅  
-**Next Module:** Module 2 - Advanced Java Domain Models
-EOF
+
 
