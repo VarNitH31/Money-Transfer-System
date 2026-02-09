@@ -47,10 +47,13 @@ public class TransferController {
             request.setIdempotencyKey(UUID.randomUUID().toString());
         }
 
-        // Authentication info is available if needed:
-        // String user = (authentication != null) ? authentication.getName() : "anonymous";
+        
 
-        TransferResponse response = transferService.transfer(request);
+        String username = authentication.getName();
+
+        TransferResponse response =
+                transferService.transfer(request, username);
+     
 
         // 201 is common when creating a transaction record
         return ResponseEntity.status(HttpStatus.CREATED).body(response);

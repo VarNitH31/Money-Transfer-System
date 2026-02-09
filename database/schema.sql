@@ -38,7 +38,7 @@ CREATE TABLE transaction_logs (
     CONSTRAINT fk_to_account FOREIGN KEY (to_account_id) 
         REFERENCES accounts(id) ON DELETE RESTRICT,
     CONSTRAINT chk_amount CHECK (amount > 0),
-    CONSTRAINT chk_txn_status CHECK (status IN ('SUCCESS', 'FAILED')),
+    CONSTRAINT chk_txn_status CHECK (status IN ('SUCCESS', 'FAILURE')),
     CONSTRAINT chk_different_accounts CHECK (from_account_id != to_account_id),
     
     INDEX idx_idempotency_key (idempotency_key),
