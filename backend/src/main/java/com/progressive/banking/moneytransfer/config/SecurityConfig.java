@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.*;
 import org.springframework.security.web.*;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.*;
 
 @Configuration
 @RequiredArgsConstructor
@@ -27,6 +28,7 @@ public class SecurityConfig {
             throws Exception {
 
         http
+            .cors(cors -> {})  // ✅ enable CORS
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sm ->
                 sm.sessionCreationPolicy(
@@ -40,6 +42,30 @@ public class SecurityConfig {
             .httpBasic(h -> h.disable());
 
         return http.build();
+    }
+
+    // 🌍 Allow CORS from everywhere (Angular, Postman, etc.)
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+
+        CorsConfiguration config = new CorsConfiguration();
+
+        config.setAllowCredentials(true);
+
+        // IMPORTANT: allow devtunnel + localhost + any device
+        config.addAllowedOriginPattern("http://localhost:*");
+        config.addAllowedOriginPattern("https://*.devtunnels.ms");
+        config.addAllowedOriginPattern("https://*.github.dev");
+        config.addAllowedOriginPattern("*"); // fallback
+
+        config.addAllowedHeader("*");
+        config.addAllowedMethod("*");
+
+        UrlBasedCorsConfigurationSource source =
+                new UrlBasedCorsConfigurationSource();
+
+        source.registerCorsConfiguration("/**", config);
+        return source;
     }
 
     @Bean
