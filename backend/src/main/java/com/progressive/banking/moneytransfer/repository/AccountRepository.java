@@ -26,7 +26,7 @@ public interface AccountRepository extends JpaRepository<Account, Integer> {
     Optional<Account> findByIdForUpdate(@Param("id") Integer id);
 
     Optional<Account> findByHolderName(String holderName);
-
+    
     boolean existsByAccountIdAndStatus(Integer accountId, AccountStatusEnum status);
 
     long countByStatus(AccountStatusEnum status);
