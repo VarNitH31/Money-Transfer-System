@@ -89,8 +89,8 @@ money-transfer-system/
 ### Current Status
 
 - [x] Module 1: GIT - Repository Setup ✅
-- [ ] Module 2: Advanced Java - Domain Models
-- [ ] Module 3: Spring Boot - REST APIs
+- [x] Module 2: Advanced Java - Domain Models
+- [x] Module 3: Spring Boot - REST APIs
 - [ ] Module 4: Angular - Frontend
 - [ ] Module 5: Snowflake - Analytics
 
@@ -135,3 +135,4 @@ For questions or issues, please open an issue in the GitHub repository.
 **Current Module:** Module 1 - GIT Setup ✅  
 **Next Module:** Module 2 - Advanced Java Domain Models
 EOF
+
