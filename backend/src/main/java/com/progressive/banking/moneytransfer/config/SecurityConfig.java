@@ -28,7 +28,7 @@ public class SecurityConfig {
             throws Exception {
 
         http
-            .cors(cors -> {})  // ✅ enable CORS
+            .cors(cors -> {})  
             .csrf(csrf -> csrf.disable())
             .sessionManagement(sm ->
                 sm.sessionCreationPolicy(
@@ -44,7 +44,7 @@ public class SecurityConfig {
         return http.build();
     }
 
-    // 🌍 Allow CORS from everywhere (Angular, Postman, etc.)
+
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
 
@@ -52,7 +52,7 @@ public class SecurityConfig {
 
         config.setAllowCredentials(true);
 
-        // IMPORTANT: allow devtunnel + localhost + any device
+        
         config.addAllowedOriginPattern("http://localhost:*");
         config.addAllowedOriginPattern("https://*.devtunnels.ms");
         config.addAllowedOriginPattern("https://*.github.dev");
