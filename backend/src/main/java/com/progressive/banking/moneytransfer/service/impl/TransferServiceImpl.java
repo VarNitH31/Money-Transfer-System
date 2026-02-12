@@ -15,6 +15,7 @@ import com.progressive.banking.moneytransfer.exception.AccountNotActiveException
 import com.progressive.banking.moneytransfer.exception.AccountNotFoundException;
 import com.progressive.banking.moneytransfer.exception.DuplicateTransferException;
 import com.progressive.banking.moneytransfer.exception.InsufficientBalanceException;
+import com.progressive.banking.moneytransfer.exception.UnauthorizedAccountAccessException;
 import com.progressive.banking.moneytransfer.repository.AccountRepository;
 import com.progressive.banking.moneytransfer.repository.TransactionLogRepository;
 import com.progressive.banking.moneytransfer.service.TransferService;
@@ -41,6 +42,7 @@ public class TransferServiceImpl implements TransferService {
     public TransferResponse transfer(TransferRequest request, String username) {
 
         // 1) Idempotency: if already processed, return existing log response
+    	if (request.getIdempotencyKey() != null && !request.getIdempotencyKey().isBlank()) {
         transactionLogRepository.findByIdempotencyKey(request.getIdempotencyKey())
                 .ifPresent(existing -> {
                     // If you prefer "return existing" instead of conflict, do that.
@@ -49,7 +51,7 @@ public class TransferServiceImpl implements TransferService {
                             "Duplicate transfer request. Idempotency key already used: " + request.getIdempotencyKey()
                     );
                 });
-
+    	};
         // 2) Fetch accounts
         Account from = accountRepository.findById(request.getFromAccountId())
                 .orElseThrow(() -> new AccountNotFoundException("From account not found: " + request.getFromAccountId()));
@@ -59,8 +61,8 @@ public class TransferServiceImpl implements TransferService {
      
         // AUTHORIZATION CHECK
         if (!from.getHolderName().equalsIgnoreCase(username)) {
-            throw new SecurityException(
-                "Unauthorized: account does not belong to logged-in user"
+            throw new UnauthorizedAccountAccessException(
+                "Account does not belong to logged-in user"
             );
         }
        

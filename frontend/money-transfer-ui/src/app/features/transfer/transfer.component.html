@@ -1,3 +1,4 @@
+<app-toast #toast></app-toast>
 <div class="transfer-layout">
   <section class="transfer-card">
     <header class="transfer-header">
@@ -51,14 +52,14 @@
         </div>
       </div>
 
-      <div class="alert alert-success" *ngIf="successMessage">
+      <!-- <div class="alert alert-success" *ngIf="successMessage">
         <strong>Success:</strong> {{ successMessage }}
         <span *ngIf="lastTransactionId"> (ID: {{ lastTransactionId }})</span>
       </div>
 
       <div class="alert alert-error" *ngIf="errorMessage">
         {{ errorMessage }}
-      </div>
+      </div> -->
 
       <div class="actions-row">
         <button type="submit" class="btn-primary" [disabled]="loading">
