@@ -1,0 +1,71 @@
+<div class="history-layout">
+  <section class="history-card">
+    <header class="history-header">
+      <h1>Transaction History</h1>
+      <p>Review your past transfers and their statuses.</p>
+    </header>
+
+    <div class="alert alert-error" *ngIf="error()">
+      {{ error() }}
+    </div>
+
+    <div class="table-wrapper" *ngIf="!loading(); else loadingTpl">
+      <table class="tx-table" *ngIf="transactions().length; else emptyTpl">
+        <thead>
+          <tr>
+            <th>Date &amp; time</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Type</th>
+            <th class="numeric">Amount</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let tx of transactions()">
+            <td>{{ tx.createdOn | date : 'medium' }}</td>
+            <td>#{{ tx.fromAccountId }}</td>
+            <td>#{{ tx.toAccountId }}</td>
+            <td>
+              <span
+                class="badge"
+                [class.badge-debit]="asDebit(tx)"
+                [class.badge-credit]="!asDebit(tx)"
+              >
+                {{ asDebit(tx) ? 'DEBIT' : 'CREDIT' }}
+              </span>
+            </td>
+            <td class="numeric">
+              <span [ngClass]="{ debit: asDebit(tx), credit: !asDebit(tx) }">
+                {{ asDebit(tx) ? '-' : '+' }}₹ {{ tx.amount | number : '1.2-2' }}
+              </span>
+            </td>
+            <td>
+              <span
+                class="status-pill"
+                [class.status-success]="tx.status === 'SUCCESS'"
+                [class.status-failed]="tx.status === 'FAILED'"
+              >
+                {{ tx.status }}
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <ng-template #loadingTpl>
+      <div class="loading">
+        <div class="skeleton-row" *ngFor="let _ of [1,2,3,4]"></div>
+      </div>
+    </ng-template>
+
+    <ng-template #emptyTpl>
+      <div class="empty-state">
+        <p>No transactions found yet.</p>
+        <p class="hint">Create a transfer to see it appear here.</p>
+      </div>
+    </ng-template>
+  </section>
+</div>
+

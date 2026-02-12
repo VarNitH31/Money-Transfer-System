@@ -1,0 +1,47 @@
+<div class="dashboard-layout">
+  <section class="welcome-card">
+    <div class="welcome-header">
+      <p class="eyebrow">Dashboard</p>
+      <h1>Welcome, {{ holderName || 'Customer' }}</h1>
+      <p class="subtitle">View your current balance and manage your transfers.</p>
+    </div>
+
+    <div class="balance-card" *ngIf="!loading() && account(); else loadingTpl">
+      <div class="balance-header">
+        <span class="label">Current balance</span>
+        <span class="status" [class.inactive]="account()?.status !== 'ACTIVE'">
+          {{ account()?.status }}
+        </span>
+      </div>
+      <div class="balance-value">
+        ₹ {{ account()?.balance | number : '1.2-2' }}
+      </div>
+      <p class="muted">As of {{ account()?.lastUpdated || ('now' | date : 'medium') }}</p>
+    </div>
+
+    <ng-template #loadingTpl>
+      <div class="balance-card loading">
+        <div class="skeleton skeleton-title"></div>
+        <div class="skeleton skeleton-balance"></div>
+        <div class="skeleton skeleton-caption"></div>
+      </div>
+    </ng-template>
+
+    <div class="actions-row">
+      <button type="button" class="btn-primary" (click)="goToTransfer()">
+        Make a transfer
+      </button>
+      <button type="button" class="btn-outline" (click)="goToHistory()">
+        View history
+      </button>
+      <button type="button" class="btn-link" (click)="logout()">
+        Logout
+      </button>
+    </div>
+
+    <div class="alert alert-error" *ngIf="error()">
+      {{ error() }}
+    </div>
+  </section>
+</div>
+

@@ -1,0 +1,162 @@
+.history-layout {
+  width: 100%;
+  max-width: 960px;
+}
+
+.history-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 1.5rem;
+  padding: 2rem 2.25rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.12);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+}
+
+.history-header h1 {
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.history-header p {
+  margin: 0.35rem 0 0;
+  font-size: 0.9rem;
+  color: #64748b;
+}
+
+.table-wrapper {
+  margin-top: 1.5rem;
+  border-radius: 1rem;
+  border: 1px solid #e5e7eb;
+  overflow: auto;
+}
+
+.tx-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.86rem;
+}
+
+.tx-table thead {
+  background-color: #f9fafb;
+}
+
+.tx-table th,
+.tx-table td {
+  padding: 0.65rem 0.9rem;
+  white-space: nowrap;
+}
+
+.tx-table th {
+  text-align: left;
+  font-weight: 600;
+  color: #4b5563;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tx-table td {
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.tx-table tr:last-child td {
+  border-bottom: none;
+}
+
+.numeric {
+  text-align: right;
+}
+
+.badge {
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.badge-debit {
+  background-color: #fef2f2;
+  color: #b91c1c;
+}
+
+.badge-credit {
+  background-color: #ecfdf3;
+  color: #166534;
+}
+
+.numeric .debit {
+  color: #b91c1c;
+}
+
+.numeric .credit {
+  color: #166534;
+}
+
+.status-pill {
+  padding: 0.2rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.status-success {
+  background-color: #ecfdf3;
+  border: 1px solid #bbf7d0;
+  color: #166534;
+}
+
+.status-failed {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.alert {
+  margin-top: 1rem;
+  padding: 0.75rem 0.9rem;
+  border-radius: 0.75rem;
+  font-size: 0.85rem;
+}
+
+.alert-error {
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+}
+
+.loading {
+  margin-top: 1.5rem;
+}
+
+.skeleton-row {
+  height: 32px;
+  margin-bottom: 0.5rem;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #e5e7eb, #f3f4f6, #e5e7eb);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.empty-state {
+  padding: 1.5rem;
+  text-align: center;
+  color: #6b7280;
+}
+
+.empty-state .hint {
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .history-card {
+    padding: 1.5rem 1.25rem;
+  }
+}
+
