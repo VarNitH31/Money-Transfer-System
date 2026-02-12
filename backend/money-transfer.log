@@ -290,28 +290,520 @@
             users u1_0 
         where
             u1_0.username=?
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - GET "/api/v1/accounts/102", parameters={}
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.progressive.banking.moneytransfer.controller.AccountController#getAccount(Integer, Authentication)
-2026-02-11 09:03:06 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258] --> AccountController.getAccount(..) | GET /api/v1/accounts/102
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258]     args=102, UsernamePasswordAuthenticationToken [Principal=org.springframework.security.core.userdetails.User [Username=Vijay, Password=****], Enabled=true, AccountNonExpired=true, CredentialsNonExpired=true, AccountNonLocked=true, Granted Authorities=[]], Credentials=[PROTECTED], Authenticated=true, Details=WebAuthenticationDetails [RemoteIpAddress=0:0:0:0:0:0:0:1, SessionId=null], Granted Authorities=[]]
-2026-02-11 09:03:06 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258] --> AccountServiceImpl.getAccount(..) | GET /api/v1/accounts/102
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258]     args=102
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
-    select
-        a1_0.account_id,
-        a1_0.balance,
-        a1_0.holder_name,
-        a1_0.last_updated,
-        a1_0.status,
-        a1_0.version 
-    from
-        accounts a1_0 
-    where
-        a1_0.account_id=?
-2026-02-11 09:03:06 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258] <-- AccountServiceImpl.getAccount(..) | timeMs=5
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258]     response=AccountResponse(accountId=102, holderName=Vijay, balance=5000.00, status=ACTIVE, version=1, lastUpdated=2026-02-11T08:57:56)
-2026-02-11 09:03:06 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258] <-- AccountController.getAccount(..) | timeMs=10
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [86ba514d-e751-4594-a34f-ae625121b258]     response=status=200, body=AccountResponse(accountId=102, holderName=Vijay, balance=5000.00, status=ACTIVE, version=1, lastUpdated=2026-02-11T08:57:56)
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Using 'application/json', given [application/json, text/plain, */*] and supported [application/json, application/*+json]
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.HttpEntityMethodProcessor - Writing [AccountResponse(accountId=102, holderName=Vijay, balance=5000.00, status=ACTIVE, version=1, lastUpda (truncated)...]
-2026-02-11 09:03:06 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-02-10 09:39:45 [http-nio-8080-exec-1] INFO  c.p.b.m.aspect.LoggingAspect - [b8ac7746-1952-45cd-868b-6deb3d5206fc] --> AccountServiceImpl.getAccountIdByHoldername(..) | POST /auth/login
+2026-02-10 09:39:45 [http-nio-8080-exec-1] DEBUG c.p.b.m.aspect.LoggingAspect - [b8ac7746-1952-45cd-868b-6deb3d5206fc]     args=Vijay
+2026-02-10 09:39:45 [http-nio-8080-exec-1] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        a 
+    FROM
+        Account a 
+    WHERE
+        a.holderName = ?1 */ select
+            a1_0.account_id,
+            a1_0.balance,
+            a1_0.holder_name,
+            a1_0.last_updated,
+            a1_0.status,
+            a1_0.version 
+        from
+            accounts a1_0 
+        where
+            a1_0.holder_name=?
+2026-02-10 09:39:45 [http-nio-8080-exec-1] INFO  c.p.b.m.aspect.LoggingAspect - [b8ac7746-1952-45cd-868b-6deb3d5206fc] <-- AccountServiceImpl.getAccountIdByHoldername(..) | timeMs=11
+2026-02-10 09:39:45 [http-nio-8080-exec-1] DEBUG c.p.b.m.aspect.LoggingAspect - [b8ac7746-1952-45cd-868b-6deb3d5206fc]     response=102
+2026-02-10 09:39:45 [http-nio-8080-exec-1] INFO  c.p.b.m.aspect.LoggingAspect - [b8ac7746-1952-45cd-868b-6deb3d5206fc] <-- AuthController.login(..) | timeMs=824
+2026-02-10 09:39:45 [http-nio-8080-exec-1] DEBUG c.p.b.m.aspect.LoggingAspect - [b8ac7746-1952-45cd-868b-6deb3d5206fc]     response=LoginResponse(token=****, holderName=Vijay, accountId=102)
+2026-02-10 09:39:45 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-02-10 09:39:45 [http-nio-8080-exec-1] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [LoginResponse(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWpheSIsImlhdCI6MTc3MDcxNjM4NSwiZXhwIjoxNzcwODA (truncated)...]
+2026-02-10 09:39:45 [http-nio-8080-exec-1] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-02-10 09:40:06 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-02-10 09:40:06 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-10 09:40:06 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-10 09:40:06 [RMI TCP Connection(11)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:40:06 [RMI TCP Connection(11)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-10 09:40:06 [RMI TCP Connection(11)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-10 09:40:12 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 1788 (C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend)
+2026-02-10 09:40:12 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-10 09:40:12 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-10 09:40:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-10 09:40:12 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-10 09:40:14 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-10 09:40:14 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 355 ms. Found 3 JPA repository interfaces.
+2026-02-10 09:40:15 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-10 09:40:15 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-10 09:40:15 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-10 09:40:15 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3451 ms
+2026-02-10 09:40:16 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-10 09:40:16 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-10 09:40:17 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-10 09:40:17 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-10 09:40:17 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6c8e5596
+2026-02-10 09:40:17 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-10 09:40:17 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-10 09:40:17 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-10 09:40:19 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-10 09:40:19 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-10 09:40:19 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:40:19 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-10 09:40:20 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-10 09:40:21 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-10 09:40:21 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-10 09:40:21 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-10 09:40:22 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-10 09:40:22 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-10 09:40:22 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-10 09:40:22 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Started MoneytransferApplication in 11.105 seconds (process running for 12.667)
+2026-02-10 09:46:19 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-10 09:46:19 [Thread-1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-10 09:46:19 [RMI TCP Connection(13)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-02-10 09:46:19 [Thread-1] WARN  org.apache.tomcat.util.net.Acceptor - Interrupt was received while waiting for the acceptor thread [http-nio-8080-Acceptor] to stop
+java.lang.InterruptedException
+	at java.base/java.util.concurrent.locks.AbstractQueuedSynchronizer.tryAcquireSharedNanos(AbstractQueuedSynchronizer.java:1081)
+	at java.base/java.util.concurrent.CountDownLatch.await(CountDownLatch.java:276)
+	at org.apache.tomcat.util.net.Acceptor.stopMillis(Acceptor.java:169)
+	at org.apache.tomcat.util.net.NioEndpoint.stopInternal(NioEndpoint.java:327)
+	at org.apache.tomcat.util.net.AbstractEndpoint.stop(AbstractEndpoint.java:1756)
+	at org.apache.coyote.AbstractProtocol.stop(AbstractProtocol.java:721)
+	at org.apache.catalina.connector.Connector.stopInternal(Connector.java:1136)
+	at org.apache.catalina.util.LifecycleBase.stop(LifecycleBase.java:235)
+	at org.apache.catalina.core.StandardService.removeConnector(StandardService.java:297)
+	at org.springframework.boot.tomcat.TomcatWebServer.lambda$removeServiceConnectors$0(TomcatWebServer.java:176)
+	at org.springframework.boot.tomcat.TomcatWebServer.doWithConnectors(TomcatWebServer.java:195)
+	at org.springframework.boot.tomcat.TomcatWebServer.removeServiceConnectors(TomcatWebServer.java:173)
+	at org.springframework.boot.tomcat.TomcatWebServer.stop(TomcatWebServer.java:355)
+	at org.springframework.boot.web.server.servlet.context.WebServerStartStopLifecycle.stop(WebServerStartStopLifecycle.java:53)
+	at org.springframework.context.SmartLifecycle.stop(SmartLifecycle.java:143)
+	at org.springframework.context.support.DefaultLifecycleProcessor.doStop(DefaultLifecycleProcessor.java:480)
+	at org.springframework.context.support.DefaultLifecycleProcessor$LifecycleGroup.stop(DefaultLifecycleProcessor.java:645)
+	at java.base/java.lang.Iterable.forEach(Iterable.java:75)
+	at org.springframework.context.support.DefaultLifecycleProcessor.stopBeans(DefaultLifecycleProcessor.java:448)
+	at org.springframework.context.support.DefaultLifecycleProcessor.onClose(DefaultLifecycleProcessor.java:337)
+	at org.springframework.context.support.AbstractApplicationContext.doClose(AbstractApplicationContext.java:1178)
+	at org.springframework.boot.web.server.servlet.context.ServletWebServerApplicationContext.doClose(ServletWebServerApplicationContext.java:176)
+	at org.springframework.context.support.AbstractApplicationContext.close(AbstractApplicationContext.java:1132)
+	at org.springframework.boot.devtools.restart.Restarter.stop(Restarter.java:310)
+	at org.springframework.boot.devtools.restart.Restarter.lambda$restart$0(Restarter.java:251)
+	at org.springframework.boot.devtools.restart.Restarter$LeakSafeThread.run(Restarter.java:616)
+2026-02-10 09:46:19 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:46:19 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-10 09:46:19 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-10 09:46:19 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 1788 (C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend)
+2026-02-10 09:46:19 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-10 09:46:19 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-10 09:46:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-10 09:46:19 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 27 ms. Found 3 JPA repository interfaces.
+2026-02-10 09:46:20 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-10 09:46:20 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-10 09:46:20 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-10 09:46:20 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 635 ms
+2026-02-10 09:46:20 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-10 09:46:20 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-10 09:46:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-02-10 09:46:20 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2b8f1737
+2026-02-10 09:46:20 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-02-10 09:46:20 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-10 09:46:20 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-10 09:46:20 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-10 09:46:20 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-10 09:46:20 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:46:20 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-10 09:46:20 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-10 09:46:21 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-10 09:46:21 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-10 09:46:21 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-10 09:46:21 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-10 09:46:21 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-10 09:46:21 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Started MoneytransferApplication in 1.827 seconds (process running for 371.345)
+2026-02-10 09:46:21 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-02-10 09:46:22 [RMI TCP Connection(16)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-02-10 09:46:22 [RMI TCP Connection(16)-127.0.0.1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-10 09:46:22 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-10 09:46:22 [RMI TCP Connection(16)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:46:22 [RMI TCP Connection(16)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-02-10 09:46:22 [RMI TCP Connection(16)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-02-10 09:46:27 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 6900 (C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend)
+2026-02-10 09:46:27 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-10 09:46:27 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-10 09:46:27 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-10 09:46:27 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-10 09:46:29 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-10 09:46:29 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 288 ms. Found 3 JPA repository interfaces.
+2026-02-10 09:46:30 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-10 09:46:30 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-10 09:46:30 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-10 09:46:30 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2926 ms
+2026-02-10 09:46:31 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-10 09:46:31 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-10 09:46:31 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-10 09:46:32 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-10 09:46:32 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@27d8643a
+2026-02-10 09:46:32 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-10 09:46:32 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-10 09:46:32 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-10 09:46:34 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-10 09:46:34 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-10 09:46:34 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:46:34 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-10 09:46:35 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-10 09:46:36 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-10 09:46:37 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-10 09:46:37 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-10 09:46:37 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-10 09:46:37 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-10 09:46:37 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-10 09:46:37 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Started MoneytransferApplication in 11.017 seconds (process running for 12.438)
+2026-02-10 09:46:38 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 7316 (C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend)
+2026-02-10 09:46:38 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-10 09:46:38 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-10 09:46:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-10 09:46:38 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-10 09:46:40 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-10 09:46:40 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 311 ms. Found 3 JPA repository interfaces.
+2026-02-10 09:46:41 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-10 09:46:41 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-10 09:46:41 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-10 09:46:42 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 3429 ms
+2026-02-10 09:46:42 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-10 09:46:42 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-10 09:46:43 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-10 09:46:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-10 09:46:43 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@27d8643a
+2026-02-10 09:46:43 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-10 09:46:43 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-10 09:46:43 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-10 09:46:45 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-10 09:46:45 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-10 09:46:46 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:46:46 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-10 09:46:46 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-10 09:46:47 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-10 09:46:48 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-10 09:46:48 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-10 09:46:48 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-10 09:46:48 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-10 09:46:48 [restartedMain] WARN  o.s.b.w.s.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2026-02-10 09:46:48 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:46:48 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-10 09:46:48 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-10 09:46:48 [restartedMain] INFO  o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-02-10 09:46:49 [restartedMain] ERROR o.s.b.d.LoggingFailureAnalysisReporter - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2026-02-10 09:46:57 [RMI TCP Connection(7)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-02-10 09:46:57 [RMI TCP Connection(7)-127.0.0.1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-10 09:46:57 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-10 09:46:57 [RMI TCP Connection(7)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:46:57 [RMI TCP Connection(7)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-10 09:46:57 [RMI TCP Connection(7)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-10 09:47:04 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 4648 (C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\New folder\Money-Transfer-System\backend)
+2026-02-10 09:47:04 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-10 09:47:04 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-10 09:47:04 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-10 09:47:04 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-10 09:47:06 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-10 09:47:06 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 294 ms. Found 3 JPA repository interfaces.
+2026-02-10 09:47:07 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-10 09:47:07 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-10 09:47:07 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-10 09:47:07 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 2990 ms
+2026-02-10 09:47:07 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-10 09:47:07 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-10 09:47:08 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-10 09:47:09 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-10 09:47:09 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6c8e5596
+2026-02-10 09:47:09 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-10 09:47:09 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-10 09:47:09 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-10 09:47:11 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-10 09:47:11 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-10 09:47:11 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:47:11 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-10 09:47:12 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-10 09:47:13 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-10 09:47:13 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-10 09:47:14 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-10 09:47:14 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-10 09:47:14 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-10 09:47:14 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-10 09:47:14 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Started MoneytransferApplication in 11.039 seconds (process running for 12.464)
+2026-02-10 09:47:33 [RMI TCP Connection(9)-127.0.0.1] INFO  o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2026-02-10 09:47:33 [RMI TCP Connection(9)-127.0.0.1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-10 09:47:33 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-10 09:47:33 [RMI TCP Connection(9)-127.0.0.1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-10 09:47:33 [RMI TCP Connection(9)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-10 09:47:33 [RMI TCP Connection(9)-127.0.0.1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-11 08:36:20 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 1792 (C:\Users\labuser\Desktop\MTS\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\MTS\Money-Transfer-System\backend)
+2026-02-11 08:36:20 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-11 08:36:20 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-11 08:36:21 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2026-02-11 08:36:21 [restartedMain] INFO  o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2026-02-11 08:36:23 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-11 08:36:23 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 518 ms. Found 3 JPA repository interfaces.
+2026-02-11 08:36:25 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-11 08:36:25 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-11 08:36:25 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-11 08:36:25 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 4156 ms
+2026-02-11 08:36:25 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-11 08:36:25 [restartedMain] INFO  org.hibernate.orm.core - HHH000001: Hibernate ORM core version 7.2.1.Final
+2026-02-11 08:36:26 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-11 08:36:26 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2026-02-11 08:36:27 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@14c0a8bd
+2026-02-11 08:36:27 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2026-02-11 08:36:27 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-11 08:36:27 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-11 08:36:30 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-11 08:36:30 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-11 08:36:30 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-11 08:36:30 [restartedMain] INFO  o.s.d.j.r.q.QueryEnhancerFactories - Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-02-11 08:36:30 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-11 08:36:32 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-11 08:36:32 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-11 08:36:33 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-11 08:36:33 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-11 08:36:33 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-11 08:36:33 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-11 08:36:33 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Started MoneytransferApplication in 13.904 seconds (process running for 15.706)
+2026-02-11 08:37:21 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-02-11 08:37:21 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected StandardServletMultipartResolver
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected AcceptHeaderLocaleResolver
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@2a45345c
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Detected org.springframework.web.servlet.support.SessionFlashMapManager@56bde9d
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-02-11 08:37:21 [http-nio-8080-exec-2] INFO  o.s.web.servlet.DispatcherServlet - Completed initialization in 6 ms
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - POST "/auth/login", parameters={}
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - Mapped to com.progressive.banking.moneytransfer.controller.AuthController#login(LoginRequest)
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Read "application/json;charset=UTF-8" to [LoginRequest(username=Vijay, password=password)]
+2026-02-11 08:37:21 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a] --> AuthController.login(..) | POST /auth/login
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a]     args=LoginRequest(username=Vijay, password=****
+2026-02-11 08:37:21 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        u 
+    FROM
+        User u 
+    WHERE
+        u.username = ?1 */ select
+            u1_0.id,
+            u1_0.password,
+            u1_0.username 
+        from
+            users u1_0 
+        where
+            u1_0.username=?
+2026-02-11 08:37:22 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a] --> AccountServiceImpl.getAccountIdByHoldername(..) | POST /auth/login
+2026-02-11 08:37:22 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a]     args=Vijay
+2026-02-11 08:37:22 [http-nio-8080-exec-2] DEBUG org.hibernate.SQL - 
+    /* SELECT
+        a 
+    FROM
+        Account a 
+    WHERE
+        a.holderName = ?1 */ select
+            a1_0.account_id,
+            a1_0.balance,
+            a1_0.holder_name,
+            a1_0.last_updated,
+            a1_0.status,
+            a1_0.version 
+        from
+            accounts a1_0 
+        where
+            a1_0.holder_name=?
+2026-02-11 08:37:22 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a] <-- AccountServiceImpl.getAccountIdByHoldername(..) | timeMs=12
+2026-02-11 08:37:22 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a]     response=102
+2026-02-11 08:37:22 [http-nio-8080-exec-2] INFO  c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a] <-- AuthController.login(..) | timeMs=678
+2026-02-11 08:37:22 [http-nio-8080-exec-2] DEBUG c.p.b.m.aspect.LoggingAspect - [7345e93f-b60c-4527-9baa-f32403f8635a]     response=LoginResponse(token=****, holderName=Vijay, accountId=102)
+2026-02-11 08:37:22 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-02-11 08:37:22 [http-nio-8080-exec-2] DEBUG o.s.w.s.m.m.a.RequestResponseBodyMethodProcessor - Writing [LoginResponse(token=eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJWaWpheSIsImlhdCI6MTc3MDc5OTA0MiwiZXhwIjoxNzcwODg (truncated)...]
+2026-02-11 08:37:22 [http-nio-8080-exec-2] DEBUG o.s.web.servlet.DispatcherServlet - Completed 200 OK
+2026-02-11 08:44:19 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-11 08:44:19 [Thread-1] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-11 08:44:19 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-11 08:44:20 [Thread-1] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-11 08:44:20 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2026-02-11 08:44:20 [Thread-1] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2026-02-11 08:44:20 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 1792 (C:\Users\labuser\Desktop\MTS\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\MTS\Money-Transfer-System\backend)
+2026-02-11 08:44:20 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-11 08:44:20 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-11 08:44:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-11 08:44:20 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 33 ms. Found 3 JPA repository interfaces.
+2026-02-11 08:44:20 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-11 08:44:20 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-11 08:44:20 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-11 08:44:20 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 648 ms
+2026-02-11 08:44:20 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-11 08:44:20 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-11 08:44:21 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2026-02-11 08:44:21 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3fecab21
+2026-02-11 08:44:21 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2026-02-11 08:44:21 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-11 08:44:21 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-11 08:44:21 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-11 08:44:21 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-11 08:44:21 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-11 08:44:21 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-11 08:44:21 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-11 08:44:21 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-11 08:44:21 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-11 08:44:21 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-11 08:44:21 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-11 08:44:21 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-11 08:44:21 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Started MoneytransferApplication in 1.712 seconds (process running for 483.871)
+2026-02-11 08:44:21 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-02-11 08:44:36 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (1 addition, 0 deletions, 0 modifications)
+2026-02-11 08:44:36 [Thread-5] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-11 08:44:36 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-11 08:44:36 [Thread-5] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-11 08:44:36 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2026-02-11 08:44:36 [Thread-5] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2026-02-11 08:44:36 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Starting MoneytransferApplication using Java 17.0.8.1 with PID 1792 (C:\Users\labuser\Desktop\MTS\Money-Transfer-System\backend\target\classes started by labuser in C:\Users\labuser\Desktop\MTS\Money-Transfer-System\backend)
+2026-02-11 08:44:36 [restartedMain] DEBUG c.p.b.m.MoneytransferApplication - Running with Spring Boot v4.0.2, Spring v7.0.3
+2026-02-11 08:44:36 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - No active profile set, falling back to 1 default profile: "default"
+2026-02-11 08:44:36 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-02-11 08:44:37 [restartedMain] INFO  o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 27 ms. Found 3 JPA repository interfaces.
+2026-02-11 08:44:37 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-02-11 08:44:37 [restartedMain] INFO  o.a.catalina.core.StandardService - Starting service [Tomcat]
+2026-02-11 08:44:37 [restartedMain] INFO  o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/11.0.15]
+2026-02-11 08:44:37 [restartedMain] INFO  o.s.b.w.c.s.WebApplicationContextInitializer - Root WebApplicationContext: initialization completed in 496 ms
+2026-02-11 08:44:37 [restartedMain] INFO  org.hibernate.orm.jpa - HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-02-11 08:44:37 [restartedMain] INFO  o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-02-11 08:44:37 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2026-02-11 08:44:37 [restartedMain] INFO  com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6c7b8f07
+2026-02-11 08:44:37 [restartedMain] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2026-02-11 08:44:37 [restartedMain] WARN  org.hibernate.orm.deprecation - HHH90000025: MySQLDialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2026-02-11 08:44:37 [restartedMain] INFO  o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [jdbc:mysql://localhost:3306/money_transfer?useSSL=false&serverTimezone=UTC&allowPublicKeyRetrieval=true]
+	Database driver: MySQL Connector/J
+	Database dialect: MySQLDialect
+	Database version: 8.1
+	Default catalog/schema: money_transfer/undefined
+	Autocommit mode: undefined/unknown
+	Isolation level: REPEATABLE_READ [default REPEATABLE_READ]
+	JDBC fetch size: none
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-02-11 08:44:37 [restartedMain] INFO  org.hibernate.orm.core - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-02-11 08:44:37 [restartedMain] DEBUG org.hibernate.SQL - 
+    alter table transaction_log 
+       modify column status enum ('FAILURE','PENDING','SUCCESS') not null
+2026-02-11 08:44:37 [restartedMain] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-02-11 08:44:37 [restartedMain] DEBUG c.p.b.m.s.JwtAuthenticationFilter - Filter 'jwtFilter' configured for use
+2026-02-11 08:44:37 [restartedMain] INFO  o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with UserDetailsService bean with name customUserDetailsService
+2026-02-11 08:44:37 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerMapping - 7 mappings in 'requestMappingHandlerMapping'
+2026-02-11 08:44:37 [restartedMain] DEBUG o.s.w.s.h.SimpleUrlHandlerMapping - Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-02-11 08:44:37 [restartedMain] DEBUG o.s.w.s.m.m.a.RequestMappingHandlerAdapter - ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-02-11 08:44:37 [restartedMain] DEBUG o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - ControllerAdvice beans: 1 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-02-11 08:44:38 [restartedMain] INFO  o.s.boot.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2026-02-11 08:44:38 [restartedMain] INFO  c.p.b.m.MoneytransferApplication - Started MoneytransferApplication in 1.454 seconds (process running for 500.138)
+2026-02-11 08:44:38 [restartedMain] INFO  o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2026-02-11 08:44:49 [File Watcher] INFO  o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2026-02-11 08:44:49 [Thread-9] INFO  o.s.boot.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2026-02-11 08:44:49 [tomcat-shutdown] INFO  o.s.boot.tomcat.GracefulShutdown - Graceful shutdown complete
+2026-02-11 08:44:49 [Thread-9] INFO  o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-02-11 08:44:49 [Thread-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2026-02-11 08:44:49 [Thread-9] INFO  com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
