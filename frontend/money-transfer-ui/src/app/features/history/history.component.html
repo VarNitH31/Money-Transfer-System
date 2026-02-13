@@ -1,22 +1,42 @@
 <div class="history-layout">
   <section class="history-card">
     <header class="history-header">
-  <button class="back-btn" (click)="goBack()">
-    ← Back
-  </button>
+      <button class="back-btn" (click)="goBack()">← Back</button>
 
-  <div class="header-text" >
-    <h1>Transaction History</h1>
-    <p>Review your past transfers and their statuses.</p>
-  </div>
-</header>
+      <div class="header-text">
+        <h1>Transaction History</h1>
+        <p>Review your past transfers and their statuses.</p>
+      </div>
+    </header>
+
+    <!-- Filter Options: Tags -->
+    <div class="filter-options">
+      <div 
+        class="filter-tag" 
+        [class.selected]="transactionFilter() === 'all'"
+        (click)="onFilterChange('all')">
+        All
+      </div>
+      <div 
+        class="filter-tag" 
+        [class.selected]="transactionFilter() === 'debits'"
+        (click)="onFilterChange('debits')">
+        Debits
+      </div>
+      <div 
+        class="filter-tag" 
+        [class.selected]="transactionFilter() === 'credits'"
+        (click)="onFilterChange('credits')">
+        Credits
+      </div>
+    </div>
 
     <div class="alert alert-error" *ngIf="error()">
       {{ error() }}
     </div>
 
     <div class="table-wrapper" *ngIf="!loading(); else loadingTpl">
-      <table class="tx-table" *ngIf="transactions().length; else emptyTpl">
+      <table class="tx-table" *ngIf="filteredTransactions().length; else emptyTpl">
         <thead>
           <tr>
             <th>Date &amp; time</th>
@@ -28,7 +48,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let tx of transactions()">
+          <tr *ngFor="let tx of filteredTransactions()">
             <td>{{ tx.createdOn | date : 'medium' }}</td>
             <td>#{{ tx.fromAccountId }}</td>
             <td>#{{ tx.toAccountId }}</td>
@@ -74,4 +94,3 @@
     </ng-template>
   </section>
 </div>
-
