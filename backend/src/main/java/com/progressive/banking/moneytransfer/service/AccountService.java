@@ -13,4 +13,6 @@ public interface AccountService {
     BalanceResponse getBalance(Integer id);
 
     List<TransferResponse> getTransactions(Integer id);
+    
+    Integer getAccountIdByHolderName(String holderName);
 }

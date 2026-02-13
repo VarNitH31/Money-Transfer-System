@@ -1,0 +1,35 @@
+<app-toast></app-toast>
+<div class="auth-card">
+  <h2>Create An Account</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div>
+      <input
+        placeholder="Username"
+        formControlName="username"
+        type="text"
+      />
+    </div>
+
+    <div>
+      <input
+        placeholder="Password"
+        formControlName="password"
+        type="password"
+      />
+    </div>
+
+    <button type="submit" [disabled]="loading">
+      {{ loading ? 'Creating...' : 'Signup' }}
+    </button>
+  </form>
+
+  <!-- <div *ngIf="error" class="error">
+    {{ error }}
+  </div> -->
+
+     <div class="login-link">
+  Already have an account?
+  <a (click)="goToLogin()">Login</a>
+</div>
+</div>

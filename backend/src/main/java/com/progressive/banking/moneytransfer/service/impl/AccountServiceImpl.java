@@ -41,6 +41,13 @@ public class AccountServiceImpl implements AccountService {
                 .orElseThrow(() -> new AccountNotFoundException("Account not found: " + id));
         return AccountMapper.toBalanceResponse(account);
     }
+    
+    @Override
+    public Integer getAccountIdByHolderName(String holderName) {
+        return accountRepository.findByHolderName(holderName)
+                .map(Account::getAccountId)
+                .orElseThrow(() -> new AccountNotFoundException("Account not found for user: " + holderName));
+    }
 
     @Override
     @Transactional(readOnly = true)
