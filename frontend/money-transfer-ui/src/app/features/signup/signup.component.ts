@@ -23,8 +23,10 @@ export class SignupComponent {
   loading = false;
 
   form = this.fb.nonNullable.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
+    // username: ['', [Validators.required, Validators.minLength(3)]],
+    // password: ['', [Validators.required, Validators.minLength(4)]],
+    username:[''],
+    password:['']
   });
   
     goToLogin() {
@@ -35,11 +37,11 @@ export class SignupComponent {
   submit(): void {
   if (this.loading) return;
 
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    this.toast.show('Please fill all required fields correctly', 'error');
-    return;
-  }
+  // if (this.form.invalid) {
+  //   this.form.markAllAsTouched();
+  //   this.toast.show('Please fill all required fields correctly', 'error');
+  //   return;
+  // }
 
     console.log(this.toast)
 
@@ -67,7 +69,7 @@ export class SignupComponent {
       error: (err) => {
         this.loading = false;
         this.toast.show(
-          err?.error?.message || 'Signup failed',
+           err?.error?.details?.username || err?.error?.details?.password || err?.error?.message || 'Signup failed',
           'error'
         );
       },
