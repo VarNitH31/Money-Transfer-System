@@ -1,0 +1,36 @@
+.auth-card {
+  width: 360px;
+  margin: auto;
+  padding: 2rem;
+  border-radius: 12px;
+  background: white;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 1rem;
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+}
+
+.error {
+  color: red;
+  margin-top: 10px;
+}
+
+
+.login-link {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.login-link a {
+  cursor: pointer;
+  color: #1976d2;
+  font-weight: 500;
+}
