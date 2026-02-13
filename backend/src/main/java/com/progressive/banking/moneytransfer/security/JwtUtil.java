@@ -12,7 +12,7 @@ public class JwtUtil {
 
     private static final String SECRET =
             "theconceptofenourmousanimalshasalwaysbeenassociatedwiththeideaofterrestrialanimalslikedinosaurs";
-    private static final long EXPIRATION = 86400000; // 1 day
+    private static final long EXPIRATION = 300000; // 1 day
 
     private Key key() {
         return Keys.hmacShaKeyFor(SECRET.getBytes());
