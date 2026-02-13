@@ -20,9 +20,8 @@ public class ErrorResponse {
     private String message;
     private LocalDateTime timestamp;
     
-    private String errorCode; 
 
-    private String message; // Custom message
+    // Custom message
 
     private String path; // Request URI
     private Map<String, String> details;

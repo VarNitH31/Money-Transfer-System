@@ -14,5 +14,5 @@ public interface AccountService {
 
     List<TransferResponse> getTransactions(Integer id);
     
-    Integer getAccountIdByHoldername(String holderName);
+    Integer getAccountIdByHolderName(String holderName);
 }

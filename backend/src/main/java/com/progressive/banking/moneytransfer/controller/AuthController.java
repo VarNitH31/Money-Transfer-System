@@ -1,18 +1,15 @@
 package com.progressive.banking.moneytransfer.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.progressive.banking.moneytransfer.domain.dto.LoginRequest;
 import com.progressive.banking.moneytransfer.domain.dto.LoginResponse;
-import com.progressive.banking.moneytransfer.security.JwtUtil;
-import com.progressive.banking.moneytransfer.service.AccountService;
+import com.progressive.banking.moneytransfer.domain.dto.SignupRequest;
+import com.progressive.banking.moneytransfer.domain.dto.SignupResponse;
+import com.progressive.banking.moneytransfer.service.AuthService;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -20,25 +17,39 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthController {
 
-    private final AuthenticationManager authManager;
-    private final AccountService accountService;
-    private final JwtUtil jwtUtil;
+    private final AuthService authService;
 
+    /**
+     * LOGIN
+     * Returns:
+     *  - JWT token
+     *  - username
+     *  - accountId
+     */
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
+    public ResponseEntity<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request) {
 
-    authManager.authenticate(
-            new UsernamePasswordAuthenticationToken(
-                    request.getUsername(), request.getPassword())
-        );
-    
-    	 String holderName=request.getUsername();
-    	 String token=jwtUtil.generateToken(request.getUsername());
-    	 Integer accountId=accountService.getAccountIdByHoldername(holderName);
-    	
+        LoginResponse response = authService.login(request);
+        return ResponseEntity.ok(response);
+    }
 
-    	 return 
-    	        new LoginResponse(token, holderName , accountId);
-    	   
+    /**
+     * SIGNUP
+     * Creates:
+     *  - new user
+     *  - new account with ₹5000
+     *  - unique 8-digit account number
+     *
+     * Returns:
+     *  - account number
+     *  - message (redirect to login)
+     */
+    @PostMapping("/signup")
+    public ResponseEntity<SignupResponse> signup(
+            @Valid @RequestBody SignupRequest request) {
+
+        SignupResponse response = authService.signup(request);
+        return ResponseEntity.ok(response);
     }
 }
