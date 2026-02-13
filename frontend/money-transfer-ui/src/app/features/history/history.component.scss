@@ -192,3 +192,38 @@
   }
 }
 
+/* Styling the filter tags */
+.filter-options {
+  display: flex;
+  justify-content: left;
+  margin: 20px 0;
+}
+
+.filter-tag {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+  font-size: small;
+}
+
+.filter-tag:hover {
+  background-color: #e0e0e0;
+}
+
+.filter-tag.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.filter-tag.selected:hover {
+  background-color: #0056b3;
+}
+
+.filter-tag:active {
+  background-color: #0056b3;
+  color: white;
+}
