@@ -43,7 +43,7 @@ public class AccountServiceImpl implements AccountService {
     }
     
     @Override
-    public Integer getAccountIdByHoldername(String holderName) {
+    public Integer getAccountIdByHolderName(String holderName) {
         return accountRepository.findByHolderName(holderName)
                 .map(Account::getAccountId)
                 .orElseThrow(() -> new AccountNotFoundException("Account not found for user: " + holderName));

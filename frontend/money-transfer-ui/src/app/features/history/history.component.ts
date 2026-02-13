@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { AccountService } from '../../core/services/account.service';
 import { TransactionLog } from '../../core/models/transaction.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-history',
@@ -16,6 +17,7 @@ export class HistoryComponent implements OnInit {
   private readonly auth = inject(AuthService);
   private readonly accountService = inject(AccountService);
   private readonly router = inject(Router);
+  private location = inject(Location);
 
   transactions = signal<TransactionLog[]>([]);
   loading = signal<boolean>(true);
@@ -45,5 +47,9 @@ export class HistoryComponent implements OnInit {
     const accountId = this.auth.getAccountId();
     return row.fromAccountId === accountId;
   }
+
+  goBack() {
+  this.location.back();
+}
 }
 

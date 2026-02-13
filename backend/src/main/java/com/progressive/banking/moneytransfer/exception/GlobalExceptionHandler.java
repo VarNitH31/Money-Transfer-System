@@ -148,20 +148,59 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(error);
     }
+    
+    @ExceptionHandler(UnauthorizedAccountAccessException.class)
+    public ResponseEntity<ErrorResponse> handleUnauthorizedAccountAccess(
+            UnauthorizedAccountAccessException ex,
+            WebRequest request) {
+
+        ErrorResponse error = ErrorResponse.builder()
+            .errorCode("ACC-403")
+            .message(ex.getMessage())
+            .timestamp(LocalDateTime.now())
+            .path(request.getDescription(false).replace("uri=", ""))
+            .build();
+
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+    }
 
     /**
      * Handle Generic Exception
      */
+    
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ErrorResponse> handleRuntimeException(
+            RuntimeException ex,
+            WebRequest request) {
+
+        Throwable root = ex;
+
+        // unwrap nested exceptions
+        while (root.getCause() != null) {
+            root = root.getCause();
+        }
+
+        log.error("Runtime exception: {}", root.getMessage(), root);
+
+        ErrorResponse error = ErrorResponse.builder()
+            .errorCode("GEN-400")
+            .message(root.getMessage())
+            .timestamp(LocalDateTime.now())
+            .path(request.getDescription(false).replace("uri=", ""))
+            .build();
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGlobalException(
             Exception ex, 
             WebRequest request) {
-        
+
         log.error("Unexpected error occurred: {}", ex.getMessage(), ex);
 
         ErrorResponse error = ErrorResponse.builder()
             .errorCode("SYS-500")
-            .message("An unexpected error occurred. Please try again later.")
+            .message(ex.getMessage())   // 🔥 IMPORTANT: show real message
             .timestamp(LocalDateTime.now())
             .path(request.getDescription(false).replace("uri=", ""))
             .build();

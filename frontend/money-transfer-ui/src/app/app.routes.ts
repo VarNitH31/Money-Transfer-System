@@ -4,6 +4,7 @@ import { DashboardComponent } from './features/dashboard/dashboard.component';
 import { TransferComponent } from './features/transfer/transfer.component';
 import { HistoryComponent } from './features/history/history.component';
 import { authGuard } from './core/guards/auth.guard';
+import { SignupComponent } from './features/signup/signup.component';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,10 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginComponent,
+  },
+  {
+  path: 'signup',
+  component:SignupComponent
   },
   {
     path: 'dashboard',
@@ -30,6 +35,7 @@ export const routes: Routes = [
     component: HistoryComponent,
     canActivate: [authGuard],
   },
+
   {
     path: '**',
     redirectTo: 'login',

@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -6,19 +6,23 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { TransferService } from '../../core/services/transfer.service';
 import { ErrorResponse, TransferSuccessResponse } from '../../core/models/transfer.model';
+import { ToastComponent } from '../../toast/toast.component'; // adjust path if needed
 
 @Component({
   selector: 'app-transfer',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, ToastComponent],
   templateUrl: './transfer.component.html',
   styleUrl: './transfer.component.scss',
 })
 export class TransferComponent {
+
   private readonly fb = inject(FormBuilder);
   private readonly auth = inject(AuthService);
   private readonly transferService = inject(TransferService);
   private readonly router = inject(Router);
+
+  @ViewChild('toast') toast!: ToastComponent;
 
   fromAccountId = this.auth.getAccountId();
 
@@ -28,8 +32,6 @@ export class TransferComponent {
   });
 
   loading = false;
-  successMessage: string | null = null;
-  errorMessage: string | null = null;
   lastTransactionId: string | null = null;
 
   get fromAccountDisplay(): string {
@@ -37,6 +39,7 @@ export class TransferComponent {
   }
 
   submit(): void {
+
     if (!this.fromAccountId) {
       this.router.navigate(['/login']);
       return;
@@ -48,8 +51,6 @@ export class TransferComponent {
     }
 
     this.loading = true;
-    this.successMessage = null;
-    this.errorMessage = null;
     this.lastTransactionId = null;
 
     const { toAccountId, amount } = this.form.getRawValue();
@@ -62,25 +63,46 @@ export class TransferComponent {
     };
 
     this.transferService.transfer(payload).subscribe({
+
       next: (res: TransferSuccessResponse | ErrorResponse) => {
         this.loading = false;
+
         if ((res as any).transactionId) {
           const ok = res as TransferSuccessResponse;
+
           this.lastTransactionId = ok.transactionId;
-          this.successMessage = ok.message || 'Transfer completed successfully.';
+
+          this.toast.show(
+            ok.message || `Transfer successful (ID: ${ok.transactionId})`,
+            'success'
+          );
+
           this.form.reset();
         } else {
           const err = res as ErrorResponse;
-          this.errorMessage = `${err.errorCode} - ${err.message}`;
+
+          this.toast.show(
+            `${err.errorCode} - ${err.message}`,
+            'error'
+          );
         }
       },
+
       error: (err) => {
         this.loading = false;
+
         const apiError = err?.error as ErrorResponse | undefined;
+
         if (apiError?.errorCode) {
-          this.errorMessage = `${apiError.errorCode} - ${apiError.message}`;
+          this.toast.show(
+            `${apiError.errorCode} - ${apiError.message}`,
+            'error'
+          );
         } else {
-          this.errorMessage = 'Transfer failed. Please try again.';
+          this.toast.show(
+            'Transfer failed. Please try again.',
+            'error'
+          );
         }
       },
     });
@@ -94,4 +116,3 @@ export class TransferComponent {
     return `trx-${Date.now()}-${Math.random().toString(16).slice(2)}`;
   }
 }
-

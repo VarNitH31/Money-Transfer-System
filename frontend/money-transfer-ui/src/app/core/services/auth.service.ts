@@ -8,6 +8,16 @@ const TOKEN_KEY = 'mts_token';
 const ACCOUNT_ID_KEY = 'mts_account_id';
 const HOLDER_NAME_KEY = 'mts_holder_name';
 
+export interface SignupRequest {
+  username: string;
+  password: string;
+}
+
+export interface SignupResponse {
+  accountNumber: number;
+  message: string;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -17,10 +27,10 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
+  // ================= LOGIN =================
   login(payload: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/auth/login`, payload).pipe(
       tap((res) => {
-        console.log(res);
         localStorage.setItem(TOKEN_KEY, res.token);
         localStorage.setItem(ACCOUNT_ID_KEY, String(res.accountId));
         localStorage.setItem(HOLDER_NAME_KEY, res.holderName);
@@ -30,6 +40,12 @@ export class AuthService {
     );
   }
 
+  // ================= SIGNUP =================
+  signup(payload: SignupRequest): Observable<SignupResponse> {
+    return this.http.post<SignupResponse>(`${environment.apiBaseUrl}/auth/signup`, payload);
+  }
+
+  // ================= LOGOUT =================
   logout(): void {
     localStorage.removeItem(TOKEN_KEY);
     localStorage.removeItem(ACCOUNT_ID_KEY);
@@ -38,6 +54,7 @@ export class AuthService {
     this.holderName.set(null);
   }
 
+  // ================= HELPERS =================
   isAuthenticated(): boolean {
     return this.hasToken();
   }
@@ -59,4 +76,3 @@ export class AuthService {
     return !!localStorage.getItem(TOKEN_KEY);
   }
 }
-
