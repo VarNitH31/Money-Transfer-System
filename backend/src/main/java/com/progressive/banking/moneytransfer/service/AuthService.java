@@ -4,6 +4,7 @@ import com.progressive.banking.moneytransfer.domain.dto.LoginRequest;
 import com.progressive.banking.moneytransfer.domain.dto.LoginResponse;
 import com.progressive.banking.moneytransfer.domain.dto.SignupRequest;
 import com.progressive.banking.moneytransfer.domain.dto.SignupResponse;
+import com.progressive.banking.moneytransfer.domain.dto.VerifyOtpRequest;
 
 public interface AuthService {
 
@@ -24,4 +25,7 @@ public interface AuthService {
      *  - returns account number + message
      */
     SignupResponse signup(SignupRequest request);
+    
+    // Verify using otp
+    void verifyOtp(VerifyOtpRequest request);
 }

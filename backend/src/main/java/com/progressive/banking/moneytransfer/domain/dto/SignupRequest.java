@@ -9,7 +9,12 @@ public class SignupRequest {
     @NotBlank
     @Pattern(regexp = "^[a-zA-Z0-9_]{4,20}$",
             message = "Username must be 4-20 characters")
-    private String username;
+    private String userName;
+    
+    @NotBlank
+    @Email(message = "Invalid email format")
+    @Size(max = 150)
+    private String email;
 
     @NotBlank
     @Pattern(
