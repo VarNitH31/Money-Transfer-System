@@ -10,13 +10,13 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class EmailService {
-	
-	
+
     private final JavaMailSender mailSender;
 
     public void sendOtp(String toEmail, String otp) {
 
         SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("veeksham69@gmail.com");   // ✅ ADD THIS
         message.setTo(toEmail);
         message.setSubject("Money Transfer System - Email Verification");
         message.setText(
