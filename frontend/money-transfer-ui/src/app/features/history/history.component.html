@@ -35,6 +35,40 @@
       {{ error() }}
     </div>
 
+    <!-- Pagination controls: page size dropdown and info -->
+    <div class="pagination-controls" *ngIf="!loading() && filteredTransactions().length">
+      <div class="pagination-left">
+        <label for="pageSizeSelect">Show</label>
+        <select
+          id="pageSizeSelect"
+          class="page-size-select"
+          [ngModel]="pageSize()"
+          (ngModelChange)="onPageSizeChange($event)">
+          <option *ngFor="let opt of pageSizeOptions" [value]="opt.value">{{ opt.label }}</option>
+        </select>
+        <span class="showing-info">
+          Showing {{ startIndex }}-{{ endIndex }} of {{ filteredTransactions().length }}
+        </span>
+      </div>
+      <div class="pagination-right">
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="currentPage() <= 1"
+          (click)="goToPage(currentPage() - 1)">
+          Previous
+        </button>
+        <span class="page-info">Page {{ currentPage() }} of {{ totalPages }}</span>
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="currentPage() >= totalPages"
+          (click)="goToPage(currentPage() + 1)">
+          Next
+        </button>
+      </div>
+    </div>
+
     <div class="table-wrapper" *ngIf="!loading(); else loadingTpl">
       <table class="tx-table" *ngIf="filteredTransactions().length; else emptyTpl">
         <thead>
@@ -48,7 +82,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let tx of filteredTransactions()">
+          <tr *ngFor="let tx of paginatedTransactions()">
             <td>{{ tx.createdOn | date : 'medium' }}</td>
             <td>#{{ tx.fromAccountId }}</td>
             <td>#{{ tx.toAccountId }}</td>
