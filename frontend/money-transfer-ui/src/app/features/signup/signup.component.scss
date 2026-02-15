@@ -33,6 +33,20 @@ form{
   color: #0f172a;
 }
 
+.requirements-hint {
+  font-size: 11px;
+  color: #64748b;
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+
+.field-error {
+  display: block;
+  font-size: 11px;
+  color: #dc2626;
+  margin-top: 4px;
+}
+
 input {
   width: 100%;
   padding: 12px 14px;
