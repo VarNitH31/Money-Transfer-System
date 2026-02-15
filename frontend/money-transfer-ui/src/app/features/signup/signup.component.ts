@@ -74,6 +74,7 @@ export class SignupComponent {
     }
 
     const { username, email, password, confirmPassword: _ } = this.form.getRawValue();
+    console.log('Form Values:', { username, email, password });
     const payload = { userName: username, email, password };
     this.loading = true;
 
