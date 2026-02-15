@@ -27,6 +27,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.progressive.banking.moneytransfer.domain.dto.LoginRequest;
 import com.progressive.banking.moneytransfer.domain.dto.LoginResponse;
+import com.progressive.banking.moneytransfer.security.JwtUtil;
 import com.progressive.banking.moneytransfer.service.AuthService;
 
 @Import(ObjectMapper.class)  // Import ObjectMapper
