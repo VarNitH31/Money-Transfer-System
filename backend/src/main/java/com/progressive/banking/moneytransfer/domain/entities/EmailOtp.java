@@ -25,4 +25,7 @@ public class EmailOtp {
 
     @Column(nullable = false)
     private LocalDateTime expiryTime;
+
+    @Column(nullable = true)  // Allow email to be nullable
+    private String email;     // Add the email field
 }
