@@ -91,6 +91,18 @@ button:disabled {
   cursor: not-allowed;
 }
 
+.btn-secondary {
+  margin-top: 8px;
+  background: transparent;
+  color: #64748b;
+  border: 1px solid #e2e8f0;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #f8fafc;
+  box-shadow: none;
+}
+
 .error {
   color: #dc2626;
   font-size: 13px;

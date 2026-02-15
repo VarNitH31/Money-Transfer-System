@@ -1,50 +1,102 @@
 <app-toast></app-toast>
 <div class="auth-card">
-  <h2>Create An Account</h2>
+  <!-- Signup form step -->
+  <ng-container *ngIf="!showOtpStep">
+    <h2>Create An Account</h2>
 
-  <p class="requirements-hint">
-    Username: 4–20 characters, letters, numbers, underscore. Password: min 6 characters, letters and numbers.
-  </p>
+    <p class="requirements-hint">
+      Username: 4–20 characters, letters, numbers, underscore. Email required. Password: min 6 characters, letters and numbers.
+    </p>
 
-  <form [formGroup]="form" (ngSubmit)="submit()">
-    <div>
-      <input
-        placeholder="Username"
-        formControlName="username"
-        type="text"
-      />
-    </div>
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div>
+        <input
+          placeholder="Username"
+          formControlName="username"
+          type="text"
+          autocomplete="username"
+        />
+        <small class="field-error" *ngIf="form.get('username')?.touched && form.get('username')?.invalid">
+          Username: 4–20 chars, letters, numbers, underscore
+        </small>
+      </div>
 
-    <div>
-      <input
-        placeholder="Password"
-        formControlName="password"
-        type="password"
-      />
-    </div>
+      <div>
+        <input
+          placeholder="Email"
+          formControlName="email"
+          type="email"
+          autocomplete="email"
+        />
+        <small class="field-error" *ngIf="form.get('email')?.touched && form.get('email')?.invalid">
+          Please enter a valid email
+        </small>
+      </div>
 
-    <div>
-      <input
-        placeholder="Confirm password"
-        formControlName="confirmPassword"
-        type="password"
-      />
-      <small class="field-error" *ngIf="form.get('confirmPassword')?.touched && form.errors?.['passwordMismatch']">
-        Passwords do not match
-      </small>
-    </div>
+      <div>
+        <input
+          placeholder="Password"
+          formControlName="password"
+          type="password"
+          autocomplete="new-password"
+        />
+        <small class="field-error" *ngIf="form.get('password')?.touched && form.get('password')?.invalid">
+          Password: min 6 chars, letters and numbers
+        </small>
+      </div>
 
-    <button type="submit" [disabled]="loading">
-      {{ loading ? 'Creating...' : 'Signup' }}
-    </button>
-  </form>
+      <div>
+        <input
+          placeholder="Confirm password"
+          formControlName="confirmPassword"
+          type="password"
+          autocomplete="new-password"
+        />
+        <small class="field-error" *ngIf="form.get('confirmPassword')?.touched && form.errors?.['passwordMismatch']">
+          Passwords do not match
+        </small>
+      </div>
 
-  <!-- <div *ngIf="error" class="error">
-    {{ error }}
-  </div> -->
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Creating...' : 'Signup' }}
+      </button>
+    </form>
+  </ng-container>
 
-     <div class="login-link">
-  Already have an account?
-  <a (click)="goToLogin()">Login</a>
-</div>
+  <!-- OTP verification step -->
+  <ng-container *ngIf="showOtpStep">
+    <h2>Verify Your Email</h2>
+    <p class="requirements-hint">
+      We sent a 6-digit OTP to your email. Enter it below.
+    </p>
+
+    <form [formGroup]="otpForm" (ngSubmit)="submitOtp()">
+      <div>
+        <input
+          placeholder="Enter 6-digit OTP"
+          formControlName="otp"
+          type="text"
+          inputmode="numeric"
+          maxlength="6"
+          autocomplete="one-time-code"
+        />
+        <small class="field-error" *ngIf="otpForm.get('otp')?.touched && otpForm.get('otp')?.invalid">
+          Please enter a valid 6-digit OTP
+        </small>
+      </div>
+
+      <button type="submit" [disabled]="loading">
+        {{ loading ? 'Verifying...' : 'Verify OTP' }}
+      </button>
+
+      <button type="button" class="btn-secondary" (click)="backToSignup()" [disabled]="loading">
+        Back
+      </button>
+    </form>
+  </ng-container>
+
+  <div class="login-link">
+    Already have an account?
+    <a (click)="goToLogin()">Login</a>
+  </div>
 </div>

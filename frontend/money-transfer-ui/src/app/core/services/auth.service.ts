@@ -9,13 +9,19 @@ const ACCOUNT_ID_KEY = 'mts_account_id';
 const HOLDER_NAME_KEY = 'mts_holder_name';
 
 export interface SignupRequest {
-  username: string;
+  userName: string;
+  email: string;
   password: string;
 }
 
 export interface SignupResponse {
-  accountNumber: number;
   message: string;
+  accountId?: number;
+}
+
+export interface VerifyOtpRequest {
+  username: string;
+  otp: string;
 }
 
 @Injectable({
@@ -43,6 +49,15 @@ export class AuthService {
   // ================= SIGNUP =================
   signup(payload: SignupRequest): Observable<SignupResponse> {
     return this.http.post<SignupResponse>(`${environment.apiBaseUrl}/auth/signup`, payload);
+  }
+
+  // ================= VERIFY OTP =================
+  verifyOtp(payload: VerifyOtpRequest): Observable<string> {
+    return this.http.post(
+      `${environment.apiBaseUrl}/auth/verify-otp`,
+      payload,
+      { responseType: 'text' }
+    );
   }
 
   // ================= LOGOUT =================

@@ -30,6 +30,9 @@ export class SignupComponent {
   @ViewChild(ToastComponent) toast!: ToastComponent;
 
   loading = false;
+  showOtpStep = false;
+  pendingUsername = '';
+  pendingPassword = '';
 
   form = this.fb.nonNullable.group(
     {
@@ -39,6 +42,7 @@ export class SignupComponent {
         Validators.maxLength(20),
         Validators.pattern(/^[a-zA-Z0-9_]+$/),
       ]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [
         Validators.required,
         Validators.minLength(6),
@@ -48,11 +52,14 @@ export class SignupComponent {
     },
     { validators: passwordMatchValidator() }
   );
-  
-    goToLogin() {
-    this.router.navigate(['/']);
-  }
 
+  otpForm = this.fb.nonNullable.group({
+    otp: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6), Validators.pattern(/^\d+$/)]],
+  });
+
+  goToLogin(): void {
+    this.router.navigate(['/login']);
+  }
 
   submit(): void {
     if (this.loading) return;
@@ -66,34 +73,63 @@ export class SignupComponent {
       return;
     }
 
-    const { confirmPassword: _, ...payload } = this.form.getRawValue();
+    const { username, email, password, confirmPassword: _ } = this.form.getRawValue();
+    const payload = { userName: username, email, password };
     this.loading = true;
 
     this.auth.signup(payload).subscribe({
       next: () => {
+        this.loading = false;
+        this.pendingUsername = username;
+        this.pendingPassword = password;
+        this.showOtpStep = true;
+        this.otpForm.reset();
+        this.toast.show('OTP sent to your email. Please verify.', 'success');
+      },
+      error: (err) => {
+        this.loading = false;
+        const msg = err?.error?.details?.userName ?? err?.error?.details?.email ?? err?.error?.details?.password ?? err?.error?.message ?? 'Signup failed';
+        this.toast.show(msg, 'error');
+      },
+    });
+  }
 
-        this.toast.show('Account created successfully', 'success');
+  submitOtp(): void {
+    if (this.loading || !this.pendingUsername) return;
 
-        // auto login
-        this.auth.login(payload).subscribe({
+    if (this.otpForm.invalid) {
+      this.otpForm.markAllAsTouched();
+      this.toast.show('Please enter a valid 6-digit OTP', 'error');
+      return;
+    }
+
+    this.loading = true;
+    this.auth.verifyOtp({ username: this.pendingUsername, otp: this.otpForm.getRawValue().otp }).subscribe({
+      next: () => {
+        this.loading = false;
+        this.toast.show('Email verified successfully. You can now log in.', 'success');
+        // Auto-login after successful OTP verification
+        this.auth.login({ username: this.pendingUsername, password: this.pendingPassword }).subscribe({
           next: () => {
-            this.loading = false;
             this.toast.show('Logged in', 'success');
             setTimeout(() => this.router.navigate(['/dashboard']), 800);
           },
           error: () => {
-            this.loading = false;
-            this.toast.show('Signup ok but login failed', 'error');
+            this.router.navigate(['/login']);
           },
         });
       },
       error: (err) => {
         this.loading = false;
-        this.toast.show(
-           err?.error?.details?.username || err?.error?.details?.password || err?.error?.message || 'Signup failed',
-          'error'
-        );
+        this.toast.show(err?.error?.message ?? 'Invalid or expired OTP', 'error');
       },
     });
+  }
+
+  backToSignup(): void {
+    this.showOtpStep = false;
+    this.pendingUsername = '';
+    this.pendingPassword = '';
+    this.otpForm.reset();
   }
 }

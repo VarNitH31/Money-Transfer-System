@@ -12,7 +12,7 @@ describe('SignupComponent', () => {
       imports: [SignupComponent],
       providers: [
         provideRouter([]),
-        { provide: AuthService, useValue: { signup: () => ({ subscribe: () => {} }), login: () => ({ subscribe: () => {} }) } },
+        { provide: AuthService, useValue: { signup: () => ({ subscribe: () => {} }), verifyOtp: () => ({ subscribe: () => {} }), login: () => ({ subscribe: () => {} }) } },
       ],
     }).compileComponents();
 
