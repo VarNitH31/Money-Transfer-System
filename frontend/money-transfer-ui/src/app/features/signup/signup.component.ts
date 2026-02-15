@@ -1,9 +1,18 @@
 import { Component, inject, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, ReactiveFormsModule, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { ToastComponent } from '../../toast/toast.component';
+
+function passwordMatchValidator(): ValidatorFn {
+  return (form: AbstractControl): ValidationErrors | null => {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    if (!password || !confirmPassword) return null;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+  };
+}
 
 @Component({
   selector: 'app-signup',
@@ -22,10 +31,23 @@ export class SignupComponent {
 
   loading = false;
 
-  form = this.fb.nonNullable.group({
-    username: ['', [Validators.required, Validators.minLength(3)]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
-  });
+  form = this.fb.nonNullable.group(
+    {
+      username: ['', [
+        Validators.required,
+        Validators.minLength(4),
+        Validators.maxLength(20),
+        Validators.pattern(/^[a-zA-Z0-9_]+$/),
+      ]],
+      password: ['', [
+        Validators.required,
+        Validators.minLength(6),
+        Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&+=]*$/),
+      ]],
+      confirmPassword: ['', [Validators.required]],
+    },
+    { validators: passwordMatchValidator() }
+  );
   
     goToLogin() {
     this.router.navigate(['/']);
@@ -33,17 +55,18 @@ export class SignupComponent {
 
 
   submit(): void {
-  if (this.loading) return;
+    if (this.loading) return;
 
-  if (this.form.invalid) {
-    this.form.markAllAsTouched();
-    this.toast.show('Please fill all required fields correctly', 'error');
-    return;
-  }
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
+      const err = this.form.errors?.['passwordMismatch']
+        ? 'Passwords do not match'
+        : 'Please fill all required fields correctly';
+      this.toast.show(err, 'error');
+      return;
+    }
 
-    console.log(this.toast)
-
-    const payload = this.form.getRawValue();
+    const { confirmPassword: _, ...payload } = this.form.getRawValue();
     this.loading = true;
 
     this.auth.signup(payload).subscribe({
@@ -67,7 +90,7 @@ export class SignupComponent {
       error: (err) => {
         this.loading = false;
         this.toast.show(
-          err?.error?.message || 'Signup failed',
+           err?.error?.details?.username || err?.error?.details?.password || err?.error?.message || 'Signup failed',
           'error'
         );
       },

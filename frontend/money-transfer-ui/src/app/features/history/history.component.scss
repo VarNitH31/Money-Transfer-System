@@ -192,3 +192,113 @@
   }
 }
 
+/* Styling the filter tags */
+.filter-options {
+  display: flex;
+  justify-content: left;
+  margin: 20px 0;
+}
+
+.filter-tag {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 20px;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+  font-weight: bold;
+  font-size: small;
+}
+
+.filter-tag:hover {
+  background-color: #e0e0e0;
+}
+
+.filter-tag.selected {
+  background-color: #007bff;
+  color: white;
+}
+
+.filter-tag.selected:hover {
+  background-color: #0056b3;
+}
+
+.filter-tag:active {
+  background-color: #0056b3;
+  color: white;
+}
+
+/* Pagination controls */
+.pagination-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.pagination-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.pagination-left label {
+  font-size: 0.9rem;
+  color: #4b5563;
+}
+
+.page-size-select {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  background: #fff;
+  cursor: pointer;
+}
+
+.page-size-select:hover,
+.page-size-select:focus {
+  border-color: #2563eb;
+  outline: none;
+}
+
+.showing-info {
+  font-size: 0.85rem;
+  color: #64748b;
+  margin-left: 0.5rem;
+}
+
+.pagination-right {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.page-btn {
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+  font-size: 0.85rem;
+  background: #fff;
+  cursor: pointer;
+  color: #374151;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+.page-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.page-info {
+  font-size: 0.85rem;
+  color: #64748b;
+}

@@ -1,22 +1,76 @@
 <div class="history-layout">
   <section class="history-card">
     <header class="history-header">
-  <button class="back-btn" (click)="goBack()">
-    ← Back
-  </button>
+      <button class="back-btn" (click)="goBack()">← Back</button>
 
-  <div class="header-text" >
-    <h1>Transaction History</h1>
-    <p>Review your past transfers and their statuses.</p>
-  </div>
-</header>
+      <div class="header-text">
+        <h1>Transaction History</h1>
+        <p>Review your past transfers and their statuses.</p>
+      </div>
+    </header>
+
+    <!-- Filter Options: Tags -->
+    <div class="filter-options">
+      <div 
+        class="filter-tag" 
+        [class.selected]="transactionFilter() === 'all'"
+        (click)="onFilterChange('all')">
+        All
+      </div>
+      <div 
+        class="filter-tag" 
+        [class.selected]="transactionFilter() === 'debits'"
+        (click)="onFilterChange('debits')">
+        Debits
+      </div>
+      <div 
+        class="filter-tag" 
+        [class.selected]="transactionFilter() === 'credits'"
+        (click)="onFilterChange('credits')">
+        Credits
+      </div>
+    </div>
 
     <div class="alert alert-error" *ngIf="error()">
       {{ error() }}
     </div>
 
+    <!-- Pagination controls: page size dropdown and info -->
+    <div class="pagination-controls" *ngIf="!loading() && filteredTransactions().length">
+      <div class="pagination-left">
+        <label for="pageSizeSelect">Show</label>
+        <select
+          id="pageSizeSelect"
+          class="page-size-select"
+          [ngModel]="pageSize()"
+          (ngModelChange)="onPageSizeChange($event)">
+          <option *ngFor="let opt of pageSizeOptions" [value]="opt.value">{{ opt.label }}</option>
+        </select>
+        <span class="showing-info">
+          Showing {{ startIndex }}-{{ endIndex }} of {{ filteredTransactions().length }}
+        </span>
+      </div>
+      <div class="pagination-right">
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="currentPage() <= 1"
+          (click)="goToPage(currentPage() - 1)">
+          Previous
+        </button>
+        <span class="page-info">Page {{ currentPage() }} of {{ totalPages }}</span>
+        <button
+          type="button"
+          class="page-btn"
+          [disabled]="currentPage() >= totalPages"
+          (click)="goToPage(currentPage() + 1)">
+          Next
+        </button>
+      </div>
+    </div>
+
     <div class="table-wrapper" *ngIf="!loading(); else loadingTpl">
-      <table class="tx-table" *ngIf="transactions().length; else emptyTpl">
+      <table class="tx-table" *ngIf="filteredTransactions().length; else emptyTpl">
         <thead>
           <tr>
             <th>Date &amp; time</th>
@@ -28,7 +82,7 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let tx of transactions()">
+          <tr *ngFor="let tx of paginatedTransactions()">
             <td>{{ tx.createdOn | date : 'medium' }}</td>
             <td>#{{ tx.fromAccountId }}</td>
             <td>#{{ tx.toAccountId }}</td>
@@ -74,4 +128,3 @@
     </ng-template>
   </section>
 </div>
-
