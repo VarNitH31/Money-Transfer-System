@@ -7,6 +7,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Collections;
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,11 @@ import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -22,8 +29,8 @@ import com.progressive.banking.moneytransfer.domain.dto.LoginRequest;
 import com.progressive.banking.moneytransfer.domain.dto.LoginResponse;
 import com.progressive.banking.moneytransfer.service.AuthService;
 
-@Import(ObjectMapper.class)
-@WebMvcTest(controllers = AuthController.class)
+@Import(ObjectMapper.class)  // Import ObjectMapper
+@WebMvcTest(controllers = AuthController.class)  // ✅ Changed from @SpringBootTest
 @AutoConfigureMockMvc(addFilters = false)
 class AuthControllerTest {
 
@@ -35,6 +42,15 @@ class AuthControllerTest {
 
     @MockitoBean
     private AuthService authService;
+    @MockitoBean  // ✅ Changed from @Autowired to @MockitoBean
+    private AuthenticationManager authenticationManager;
+
+    @MockitoBean  // ✅ Changed from @Autowired to @MockitoBean
+    private JwtUtil jwtUtil;
+    
+    @MockitoBean
+    private JavaMailSender javaMailSender;
+
 
     @Test
     @DisplayName("POST /auth/login returns 200 and token when credentials valid")

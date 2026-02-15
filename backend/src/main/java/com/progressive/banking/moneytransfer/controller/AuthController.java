@@ -1,12 +1,16 @@
 package com.progressive.banking.moneytransfer.controller;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.progressive.banking.moneytransfer.domain.dto.LoginRequest;
 import com.progressive.banking.moneytransfer.domain.dto.LoginResponse;
 import com.progressive.banking.moneytransfer.domain.dto.SignupRequest;
 import com.progressive.banking.moneytransfer.domain.dto.SignupResponse;
+import com.progressive.banking.moneytransfer.domain.dto.VerifyOtpRequest;
 import com.progressive.banking.moneytransfer.service.AuthService;
 
 import jakarta.validation.Valid;
@@ -52,4 +56,13 @@ public class AuthController {
         SignupResponse response = authService.signup(request);
         return ResponseEntity.ok(response);
     }
+    
+    @PostMapping("/verify-otp")
+    public ResponseEntity<String> verifyOtp(
+            @RequestBody VerifyOtpRequest request) {
+
+        authService.verifyOtp(request);
+        return ResponseEntity.ok("Email verified successfully");
+    }
+
 }

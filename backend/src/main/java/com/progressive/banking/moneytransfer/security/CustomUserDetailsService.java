@@ -20,11 +20,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     	System.out.println("seraching for user"+username);
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+        if (!user.isEmailVerified()) {
+            throw new UsernameNotFoundException("Email not verified");
+        }
 
+        
         return new org.springframework.security.core.userdetails.User(
                 user.getUsername(),
                 user.getPassword(),
                 Collections.emptyList()
         );
     }
+    
+    
 }

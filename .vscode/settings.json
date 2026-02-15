@@ -14,5 +14,6 @@
             "database": "money_transfer",
             "username": "root"
         }
-    ]
+    ],
+    "java.compile.nullAnalysis.mode": "disabled"
 }
