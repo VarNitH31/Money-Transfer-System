@@ -1,13 +1,15 @@
 package com.progressive.banking.moneytransfer.service.impl;
 
+import java.math.BigDecimal;
 import java.util.List;
 
+import com.progressive.banking.moneytransfer.domain.dto.*;
+import com.progressive.banking.moneytransfer.domain.enums.AccountStatusEnum;
+import com.progressive.banking.moneytransfer.exception.InsufficientRewardPointsException;
+import com.progressive.banking.moneytransfer.exception.UnauthorizedAccountAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.progressive.banking.moneytransfer.domain.dto.AccountResponse;
-import com.progressive.banking.moneytransfer.domain.dto.BalanceResponse;
-import com.progressive.banking.moneytransfer.domain.dto.TransferResponse;
 import com.progressive.banking.moneytransfer.domain.entities.Account;
 import com.progressive.banking.moneytransfer.domain.entities.TransactionLog;
 import com.progressive.banking.moneytransfer.domain.mapper.AccountMapper;
@@ -61,5 +63,88 @@ public class AccountServiceImpl implements AccountService {
                 .findByFromAccountIdOrToAccountIdOrderByCreatedOnDesc(id, id);
 
         return logs.stream().map(TransferMapper::toResponse).toList();
+    }
+
+
+    @Override
+    @Transactional
+    public RewardRedeemResponse redeemRewards(
+            Integer accountId,
+            String username) {
+
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() ->
+                        new AccountNotFoundException(
+                                "Account not found"));
+
+        if (!account.getHolderName()
+                .equalsIgnoreCase(username)) {
+
+            throw new UnauthorizedAccountAccessException(
+                    "Account does not belong to logged-in user");
+        }
+
+        int rewardPoints = account.getRewardPoints();
+
+        if (rewardPoints < 10) {
+            throw new InsufficientRewardPointsException(
+                    "Minimum 10 reward points required");
+        }
+
+
+
+        BigDecimal redeemAmount = BigDecimal.valueOf(rewardPoints * 3L);
+
+        account.setBalance(
+                account.getBalance().add(redeemAmount));
+
+        account.setRewardPoints(0);
+
+        accountRepository.save(account);
+
+        return new RewardRedeemResponse(
+                rewardPoints,
+                redeemAmount,
+                0,
+                account.getBalance()
+        );
+    }
+
+    @Override
+    @Transactional
+    public DeactivateAccountResponse deactivateAccount(
+            Integer accountId,
+            String username) {
+
+        Account account = accountRepository.findById(accountId)
+                .orElseThrow(() ->
+                        new AccountNotFoundException(
+                                "Account not found"));
+
+        if (!account.getHolderName()
+                .equalsIgnoreCase(username)) {
+
+            throw new UnauthorizedAccountAccessException(
+                    "Account does not belong to logged-in user");
+        }
+
+        if (account.getStatus() == AccountStatusEnum.LOCKED) {
+
+            return new DeactivateAccountResponse(
+                    accountId,
+                    account.getStatus().name(),
+                    "Account already deactivated"
+            );
+        }
+
+        account.setStatus(AccountStatusEnum.LOCKED);
+
+        accountRepository.save(account);
+
+        return new DeactivateAccountResponse(
+                accountId,
+                account.getStatus().name(),
+                "Account successfully deactivated"
+        );
     }
 }

@@ -49,6 +49,9 @@ public class Account {
     @Column(nullable = false)
     private LocalDateTime lastUpdated;
 
+    @Column(nullable = false)
+    private Integer rewardPoints = 0;
+
     @PrePersist
     public void prePersist() {
         if (lastUpdated == null) {

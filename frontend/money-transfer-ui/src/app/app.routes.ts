@@ -5,6 +5,7 @@ import { TransferComponent } from './features/transfer/transfer.component';
 import { HistoryComponent } from './features/history/history.component';
 import { authGuard } from './core/guards/auth.guard';
 import { SignupComponent } from './features/signup/signup.component';
+import { ProfileComponent } from './features/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -35,6 +36,11 @@ export const routes: Routes = [
     component: HistoryComponent,
     canActivate: [authGuard],
   },
+{
+  path: 'profile',
+  component: ProfileComponent,
+  canActivate: [authGuard],
+},
 
   {
     path: '**',

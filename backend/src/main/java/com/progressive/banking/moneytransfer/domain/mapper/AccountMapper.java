@@ -16,6 +16,7 @@ public final class AccountMapper {
                 .status(a.getStatus())
                 .version(a.getVersion())
                 .lastUpdated(a.getLastUpdated())
+                .rewardPoints(a.getRewardPoints())
                 .build();
     }
 

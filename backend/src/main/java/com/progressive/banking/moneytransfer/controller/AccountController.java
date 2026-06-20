@@ -2,15 +2,13 @@ package com.progressive.banking.moneytransfer.controller;
 
 import java.util.List;
 
+import com.progressive.banking.moneytransfer.domain.dto.*;
 import org.springframework.http.ResponseEntity;
 //import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.progressive.banking.moneytransfer.domain.dto.AccountResponse;
-import com.progressive.banking.moneytransfer.domain.dto.BalanceResponse;
-import com.progressive.banking.moneytransfer.domain.dto.TransferResponse;
 import com.progressive.banking.moneytransfer.service.AccountService;
 
 import jakarta.validation.constraints.Min;
@@ -63,6 +61,33 @@ public class AccountController {
             Authentication authentication) {
 
         List<TransferResponse> response = accountService.getTransactions(id);
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{id}/redeem-rewards")
+    public ResponseEntity<RewardRedeemResponse> redeemRewards(
+            @PathVariable Integer id,
+            Authentication authentication) {
+
+        RewardRedeemResponse response =
+                accountService.redeemRewards(
+                        id,
+                        authentication.getName());
+
+        return ResponseEntity.ok(response);
+    }
+
+    @PostMapping("/{id}/deactivate")
+    public ResponseEntity<DeactivateAccountResponse>
+    deactivateAccount(
+            @PathVariable Integer id,
+            Authentication authentication) {
+
+        DeactivateAccountResponse response =
+                accountService.deactivateAccount(
+                        id,
+                        authentication.getName());
+
         return ResponseEntity.ok(response);
     }
 }

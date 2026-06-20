@@ -1,0 +1,357 @@
+<div class="profile-container">
+
+  <!-- Loading -->
+  <div class="profile-card" *ngIf="loading()">
+    <h2>Loading Profile...</h2>
+  </div>
+
+  <!-- Error -->
+  <div
+    class="error-card"
+    *ngIf="error()">
+    {{ error() }}
+  </div>
+
+  <!-- Main Content -->
+  <ng-container *ngIf="!loading() && account() as acc">
+
+    <!-- ========================= -->
+    <!-- Account Details -->
+    <!-- ========================= -->
+
+    <div class="profile-card">
+
+                  <button
+      class="back-btn"
+      (click)="goBack()">
+
+      ← Back
+
+    </button>
+
+      <div class="card-header">
+
+
+        <h2>My Profile</h2>
+      </div>
+
+      <div class="info-row">
+        <span>Account ID</span>
+        <strong>{{ acc.accountId }}</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Account Holder</span>
+        <strong>{{ acc.holderName }}</strong>
+      </div>
+
+      <div class="info-row">
+        <span>Balance</span>
+        <strong>
+          ₹ {{ acc.balance | number:'1.2-2' }}
+        </strong>
+      </div>
+
+      <div class="info-row">
+        <span>Status</span>
+
+        <strong
+          class="status-badge"
+          [class.active]="acc.status === 'ACTIVE'"
+          [class.inactive]="acc.status !== 'ACTIVE'">
+
+          {{ acc.status }}
+
+        </strong>
+      </div>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- Rewards -->
+    <!-- ========================= -->
+
+    <div class="profile-card reward-card">
+
+      <div class="reward-header">
+
+        <div>
+          <h3>Reward Points</h3>
+
+          <p class="reward-subtitle">
+            Earn rewards every time you transfer money.
+          </p>
+        </div>
+
+        <div class="reward-count">
+          {{ acc.rewardPoints }} RP
+        </div>
+
+      </div>
+
+      <div class="reward-info">
+
+        <div class="reward-rule">
+          1 Reward Point = ₹3
+        </div>
+
+        <div class="reward-rule">
+          Minimum redemption: 10 Reward Points
+        </div>
+
+      </div>
+
+      <div class="reward-preview">
+
+        Redeem Value:
+
+        <strong>
+          ₹ {{ acc.rewardPoints * 3 }}
+        </strong>
+
+      </div>
+
+      <button
+        class="redeem-btn"
+        [disabled]="acc.rewardPoints < 10"
+        (click)="redeemRewards()">
+
+        Redeem Rewards
+
+      </button>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- Security -->
+    <!-- ========================= -->
+
+    <div class="profile-card">
+
+      <div class="card-header">
+        <h3>Security</h3>
+      </div>
+
+      <p class="security-description">
+        Manage your transaction PIN.
+      </p>
+
+      <button
+        class="security-btn"
+        (click)="openPinModal()">
+
+        Reset Transaction PIN
+
+      </button>
+
+    </div>
+
+    <!-- ========================= -->
+    <!-- Account Actions -->
+    <!-- ========================= -->
+
+    <div class="profile-card">
+
+      <div class="card-header">
+        <h3>Account Actions</h3>
+      </div>
+
+      <div class="actions">
+
+        <button
+          class="logout-btn"
+          (click)="logout()">
+
+          Logout
+
+        </button>
+
+        <button
+          class="disable-btn"
+          (click)="disableAccount()">
+
+          Deactivate Account
+
+        </button>
+
+      </div>
+
+    </div>
+
+  </ng-container>
+
+</div>
+
+<!-- ==================================== -->
+<!-- PIN RESET MODAL -->
+<!-- ==================================== -->
+
+<div
+  class="modal-backdrop"
+  *ngIf="showPinModal()">
+
+  <div class="modal-card">
+
+    <h2>Reset Transaction PIN</h2>
+
+    <ng-container *ngIf="pinStep() === 1">
+
+      <p class="modal-description">
+        Enter your current PIN to continue.
+      </p>
+
+      <label>
+        Current PIN
+      </label>
+
+      <input
+        type="password"
+        maxlength="6"
+        [(ngModel)]="currentPin">
+
+    </ng-container>
+
+    <ng-container *ngIf="pinStep() === 2">
+
+      <p class="modal-description">
+        Enter your new PIN.
+      </p>
+
+      <label>
+        New PIN
+      </label>
+
+      <input
+        type="password"
+        maxlength="6"
+        [(ngModel)]="newPin">
+
+      <label>
+        Confirm New PIN
+      </label>
+
+      <input
+        type="password"
+        maxlength="6"
+        [(ngModel)]="confirmPin">
+
+    </ng-container>
+
+    <div
+      class="validation-error"
+      *ngIf="pinError()">
+
+      {{ pinError() }}
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel-btn"
+        (click)="closePinModal()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="primary-btn"
+        *ngIf="pinStep() === 1"
+        (click)="verifyCurrentPin()">
+
+        Continue
+
+      </button>
+
+      <button
+        class="primary-btn"
+        *ngIf="pinStep() === 2"
+        (click)="resetPin()">
+
+        Reset PIN
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ==================================== -->
+<!-- DEACTIVATE ACCOUNT MODAL -->
+<!-- ==================================== -->
+
+<div
+  class="modal-backdrop"
+  *ngIf="showDeactivateModal()">
+
+  <div class="modal-card">
+
+    <h2>Deactivate Account</h2>
+
+    <p class="modal-description">
+
+      Deactivating your account will disable access
+      to transfers and account services.
+
+    </p>
+
+    <p class="modal-description">
+
+      To reactivate your account, you may need to
+      contact customer support.
+
+    </p>
+
+    <div class="warning-box">
+
+      Please ensure your account balance is settled
+      before proceeding.
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="cancel-btn"
+        (click)="closeDeactivateModal()">
+
+        Cancel
+
+      </button>
+
+      <button
+        class="danger-btn"
+        (click)="confirmDeactivate()">
+
+        Deactivate
+
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ==================================== -->
+<!-- TOASTS -->
+<!-- ==================================== -->
+
+<div
+  class="toast success"
+  *ngIf="showPinToast()">
+
+  PIN reset successfully
+
+</div>
+
+<div
+  class="toast success"
+  *ngIf="showRewardToast()">
+
+  Rewards redeemed successfully
+
+</div>

@@ -2,9 +2,7 @@ package com.progressive.banking.moneytransfer.service;
 
 import java.util.List;
 
-import com.progressive.banking.moneytransfer.domain.dto.AccountResponse;
-import com.progressive.banking.moneytransfer.domain.dto.BalanceResponse;
-import com.progressive.banking.moneytransfer.domain.dto.TransferResponse;
+import com.progressive.banking.moneytransfer.domain.dto.*;
 
 public interface AccountService {
 
@@ -15,4 +13,12 @@ public interface AccountService {
     List<TransferResponse> getTransactions(Integer id);
     
     Integer getAccountIdByHolderName(String holderName);
+
+    RewardRedeemResponse redeemRewards(
+            Integer accountId,
+            String username);
+
+    DeactivateAccountResponse deactivateAccount(
+            Integer accountId,
+            String username);
 }

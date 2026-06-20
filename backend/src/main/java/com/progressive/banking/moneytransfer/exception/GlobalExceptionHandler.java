@@ -207,4 +207,16 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(error);
     }
+
+    @ExceptionHandler(InsufficientRewardPointsException.class)
+    public ResponseEntity<ErrorResponse> handleInsufficientRewardPoints(
+            InsufficientRewardPointsException ex) {
+
+        return ResponseEntity.badRequest().body(
+                ErrorResponse.builder()
+                        .errorCode("REWARD-400")
+                        .message(ex.getMessage())
+                        .build()
+        );
+    }
 }

@@ -31,6 +31,10 @@ public class AccountResponse {
     @PositiveOrZero(message = "balance must be zero or positive")
     private BigDecimal balance;
 
+    @NotNull(message = "rewardPoints must not be null")
+    @PositiveOrZero(message = "rewardPoints must be zero or positive")
+    private Integer rewardPoints;
+
     @NotNull(message = "status must not be null")
     private AccountStatusEnum status;
 

@@ -1,7 +1,8 @@
 export interface Account {
-  id: number;
+  accountId: number;
   holderName: string;
   balance: number;
+  rewardPoints: number;
   status: 'ACTIVE' | 'LOCKED' | 'CLOSED';
   lastUpdated?: string;
 }

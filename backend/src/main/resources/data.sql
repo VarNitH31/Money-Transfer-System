@@ -9,11 +9,16 @@
 -- status=VALUES(status), last_updated=NOW();
 
 -- Use LOCKED or CLOSED instead of INACTIVE
-INSERT INTO accounts (account_id, holder_name, balance, status, version, last_updated)
-VALUES (103, 'Inactive User', 2000.00, 'LOCKED', 0, NOW())
-ON DUPLICATE KEY UPDATE holder_name=VALUES(holder_name), balance=VALUES(balance),
-status=VALUES(status), last_updated=NOW();
-
+INSERT INTO accounts
+(account_id, holder_name, balance, reward_points, status, version, last_updated)
+VALUES
+(103, 'Inactive User', 2000.00, 0, 'LOCKED', 0, NOW())
+ON DUPLICATE KEY UPDATE
+holder_name = VALUES(holder_name),
+balance = VALUES(balance),
+reward_points = VALUES(reward_points),
+status = VALUES(status),
+last_updated = NOW();
 
 -- INSERT INTO users (username, password)
 -- VALUES ('Vijay', '$2a$10$psGIy2yLxsiME1SsJtsDtOtPSCj596.NmMrZW/BKDmxyBwRDlQmGe')

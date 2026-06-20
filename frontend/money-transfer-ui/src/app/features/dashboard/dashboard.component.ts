@@ -47,6 +47,10 @@ export class DashboardComponent implements OnInit {
     return this.auth.getHolderName() || (this.account()?.holderName ?? '');
   }
 
+  get AccountId(): number|string {
+    return this.auth.getAccountId() || (this.account()?.accountId ?? '');
+  }
+
   logout(): void {
     this.auth.logout();
     this.router.navigate(['/login']);
@@ -59,5 +63,9 @@ export class DashboardComponent implements OnInit {
   goToHistory(): void {
     this.router.navigate(['/history']);
   }
+
+  goToProfile(): void {
+  this.router.navigate(['/profile']);
+}
 }
 

@@ -30,6 +30,7 @@ public class TransferServiceImpl implements TransferService {
 
     private final AccountRepository accountRepository;
     private final TransactionLogRepository transactionLogRepository;
+    private final RewardServiceImpl rewardService;
 
     /**
      * Main API method
@@ -82,6 +83,20 @@ public class TransferServiceImpl implements TransferService {
 
             // 5) Execute actual debit/credit
             executeTransfer(from, to, request.getAmount());
+
+            int pointsEarned =
+                    rewardService.calculateRewardPoints(request.getAmount());
+
+            from.setRewardPoints(
+                    from.getRewardPoints() + pointsEarned
+            );
+
+            log.info(
+                    "Reward points awarded. accountId={}, pointsEarned={}, totalPoints={}",
+                    from.getAccountId(),
+                    pointsEarned,
+                    from.getRewardPoints()
+            );
 
             // 6) Persist updated accounts
             accountRepository.save(from);

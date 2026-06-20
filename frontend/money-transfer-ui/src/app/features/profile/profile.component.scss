@@ -1,0 +1,467 @@
+.profile-container {
+  width: min(950px, 92vw);
+  margin: 40px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* =========================
+   Cards
+========================= */
+
+.profile-card {
+  background: rgba(255, 255, 255, 0.96);
+  border-radius: 1.5rem;
+  padding: 1.75rem;
+  box-shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+.card-header {
+  margin-bottom: 1rem;
+}
+
+.card-header h2,
+.card-header h3 {
+  margin: 0;
+  color: #0f172a;
+}
+
+.error-card {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  padding: 1rem;
+  border-radius: 12px;
+}
+
+/* =========================
+   Account Details
+========================= */
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding: 14px 0;
+
+  border-bottom: 1px solid #ececec;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.info-row span {
+  color: #64748b;
+}
+
+.info-row strong {
+  color: #111827;
+}
+
+/* =========================
+   Status Badge
+========================= */
+
+.status-badge {
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+}
+
+.status-badge.active {
+  background: rgba(22, 163, 74, 0.1);
+  color: #15803d;
+  border: 1px solid rgba(22, 163, 74, 0.15);
+}
+
+.status-badge.inactive {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+/* =========================
+   Rewards
+========================= */
+
+.reward-card {
+  background: linear-gradient(
+    135deg,
+    #fff8e1,
+    #fffdf5
+  );
+}
+
+.reward-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.reward-header h3 {
+  margin: 0;
+}
+
+.reward-subtitle {
+  margin-top: 4px;
+  color: #78716c;
+  font-size: 0.9rem;
+}
+
+.reward-count {
+  font-size: 1.6rem;
+  font-weight: 700;
+  color: #d97706;
+}
+
+.reward-info {
+  margin-top: 1rem;
+}
+
+.reward-rule {
+  margin-bottom: 0.4rem;
+  color: #57534e;
+}
+
+.reward-preview {
+  margin-top: 1rem;
+  font-size: 1rem;
+}
+
+.reward-preview strong {
+  color: #d97706;
+}
+
+.redeem-btn {
+  margin-top: 1rem;
+
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 18px;
+
+  background: #f59e0b;
+  color: white;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.redeem-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(245, 158, 11, 0.25);
+}
+
+.redeem-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* =========================
+   Security
+========================= */
+
+.security-description {
+  margin-bottom: 1rem;
+  color: #64748b;
+}
+
+.security-btn {
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 18px;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.security-btn:hover {
+  background: #dbeafe;
+}
+
+/* =========================
+   Actions
+========================= */
+
+.actions {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.logout-btn,
+.disable-btn {
+  border: none;
+  border-radius: 12px;
+
+  padding: 12px 18px;
+
+  font-weight: 600;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.logout-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.logout-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(37, 99, 235, 0.25);
+}
+
+.disable-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.disable-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(220, 38, 38, 0.25);
+}
+
+/* =========================
+   Modals
+========================= */
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+
+  background: rgba(15, 23, 42, 0.5);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 1rem;
+
+  z-index: 999;
+}
+
+.modal-card {
+  width: min(500px, 95vw);
+
+  background: white;
+
+  border-radius: 20px;
+
+  padding: 1.5rem;
+
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.2);
+}
+
+.modal-card h2 {
+  margin-top: 0;
+}
+
+.modal-description {
+  color: #64748b;
+  margin-bottom: 1rem;
+}
+
+.modal-card label {
+  display: block;
+  margin-bottom: 0.4rem;
+  margin-top: 1rem;
+  font-weight: 500;
+}
+
+.modal-card input {
+  width: 100%;
+
+  padding: 12px;
+
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+
+  outline: none;
+  box-sizing: border-box;
+}
+
+.modal-card input:focus {
+  border-color: #2563eb;
+}
+
+.validation-error {
+  margin-top: 1rem;
+  color: #dc2626;
+  font-size: 0.9rem;
+}
+
+.warning-box {
+  margin-top: 1rem;
+
+  padding: 1rem;
+
+  background: #fff7ed;
+
+  border: 1px solid #fdba74;
+
+  border-radius: 12px;
+
+  color: #9a3412;
+}
+
+.modal-actions {
+  margin-top: 1.5rem;
+
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-btn,
+.primary-btn,
+.danger-btn {
+  border: none;
+  border-radius: 10px;
+
+  padding: 10px 18px;
+
+  cursor: pointer;
+}
+
+.cancel-btn {
+  background: #e5e7eb;
+}
+
+.primary-btn {
+  background: #2563eb;
+  color: white;
+}
+
+.danger-btn {
+  background: #dc2626;
+  color: white;
+}
+
+.back-btn {
+  border: none;
+  margin-bottom: 20px;
+
+  background: #eff6ff;
+  color: #2563eb;
+
+  padding: 10px 16px;
+
+  border-radius: 12px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+}
+
+.back-btn:hover {
+  background: #dbeafe;
+  transform: translateY(-2px);
+}
+
+/* =========================
+   Toast
+========================= */
+
+.toast {
+  position: fixed;
+
+  right: 24px;
+  bottom: 24px;
+
+  padding: 14px 18px;
+
+  border-radius: 12px;
+
+  color: white;
+
+  font-weight: 600;
+
+  z-index: 1200;
+
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+
+  animation: slideUp 0.25s ease;
+}
+
+.toast.success {
+  background: #16a34a;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* =========================
+   Responsive
+========================= */
+
+@media (max-width: 768px) {
+
+  .profile-container {
+    width: 95%;
+    margin: 20px auto;
+  }
+
+  .reward-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .logout-btn,
+  .disable-btn,
+  .security-btn,
+  .redeem-btn {
+    width: 100%;
+  }
+
+  .info-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .cancel-btn,
+  .primary-btn,
+  .danger-btn {
+    width: 100%;
+  }
+
+  .toast {
+    right: 12px;
+    left: 12px;
+    bottom: 12px;
+    text-align: center;
+  }
+}
